@@ -1,0 +1,59 @@
+<style>	
+		.star {
+			padding: 0px 0 0 3px;
+			color: #F3565D;
+			float: left;
+			font-size: 17px;
+			cursor: pointer;
+		}
+		.profile th{
+			vertical-align: middle !important;
+		}
+</style>
+<div class="row">
+	<div class="col-md-12">
+		<h3 class="page-title">
+		{{state_id==0? "Devam Eden Projeler" : "Tamamlanan Projeler"}} <small>çalışmalarımız ve yönetimi</small>
+		</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/#/">Anasayfa</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#/project/{{state_id}}">{{state_id==0?"Devam Eden Projeler":"Tamamlanan Projeler"}}</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="row proje">
+	<div class="col-md-12" ui-view="project.list"></div>
+</div>
+<script>
+	jQuery(function($){
+
+		setTimeout(function(){
+			$(".nav-tabs").click(function(e){
+				e.preventDefault();
+			});
+
+			$("#tab_1_11").unbind('keypress');
+			$("#yenigorev").unbind('keypress');
+			$(".input-cont input").unbind('keypress');
+			$('.input-cont input').on('keypress',  function(e) {
+			 	console.log("1");
+              if(e.keyCode==13){
+                e.preventDefault();
+                $(".tabbable").first().find("td a").first().click();           
+              }
+            });
+		});
+
+		 
+
+	});
+</script>

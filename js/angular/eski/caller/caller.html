@@ -1,0 +1,312 @@
+<style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+            margin-left: -1px;
+            padding-left: 14px; /* Regular padding-left + 1. */
+            width: 401px;
+        }
+
+    .pac-container {
+        font-family: Roboto;
+    }
+
+    #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+    }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #map-canvas {
+        width: 100%;
+        height: 555px;
+    }
+
+    .tab-content > .active {
+        overflow: hidden;
+    }
+    .tabhide{
+        display: none !important;
+    }
+    .tabshow{
+        display: block !important;
+    }
+    .arama tr:nth-child(odd) {
+           background-color: #ccc!important;
+        }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Arama Kaydı <small>aramalar ve talepler</small>
+        </h3>
+        <div class = "page-bar">
+            <ul class = "page-breadcrumb breadcrumb">
+                <li>
+                    <i class    = "fa fa-home"></i>
+                    <a href     = "/#/">Anasayfa</a>
+                    <i class    = "fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href     = "#/caller">Arama Kaydı</a>
+                    <i class    = "fa fa-angle-right"></i>
+                </li> 
+            </ul>
+
+            <div class="page-toolbar">
+                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range">
+                    <i class="icon-calendar"></i>
+                    <span></span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_11" data-toggle="tab">
+                        Yeni Arama Kaydı
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab_1_22" data-toggle="tab">
+                        Arama Kayıtları
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_11">
+                    <form role="form" action="#">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Firma Adı</label>
+                                    <input type         = "text"
+                                           placeholder  = "Firma Adı"
+                                           ng-model     = "new.company"
+                                           class        = "form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Yetkili Kişi</label>
+                                    <input  class       = "form-control"
+                                            rows        = "3"
+                                            ng-model    = "new.name"
+                                            placeholder = "Adres"></input>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefon No</label>
+                                    <input type         = "text"
+                                           ui-mask      = "9 (999) 999 99 99"
+                                           placeholder  = "_ (___) ___ __ __"
+                                           ng-model     = "new.phone"
+                                           class        = "form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Arama Tarihi</label>
+                                        <input type="text" 
+                                            class="form-control"
+                                            ng-model         = "new.date"
+                                            data-date-format = "dd-MM-yyyy" 
+                                            data-date-type   = "number"
+                                            data-autoclose   = "1" 
+                                            name             = "date2" 
+                                            bs-datepicker>
+                                    </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Konu</label>
+                                    <textarea class="form-control"
+                                        rows        = "4"
+                                        ng-model    = "new.subject"
+                                        placeholder = "Konu"></textarea>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                           <div class="margiv-top-10">
+                                    <a class="btn green" ng-click="save()">
+                                        Kaydet
+                                    </a>
+                                    <a href="#" class="btn default">
+                                        İptal
+                                    </a>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="alert alert-{{durumClass}}">
+                                        {{Durum}}
+                                    </div>
+                                </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab_1_22">
+                    <div class="row search-form-default">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-cont">
+                                    <input type = "text"
+                                           id   = "yenigorev"
+                                           ng-model     = "calls.search"
+                                           placeholder  = "Kayıt Ara..."
+                                           class        = "form-control">
+                                </div>
+                                <span class = "input-group-btn">
+                                    <button type    = "button"
+                                            id      = "btngorev"
+                                            class   = "btn green-haze">
+                                            Ara &nbsp;
+                                        <i class    = "m-icon-swapright m-icon-white"></i>
+                                    </button>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body profile" ui-view>
+                        <div style="clear: both"></div>
+                        <br>
+
+                        <table class="arama task-content table table-striped table-bordered table-advance table-hover" >
+                            <thead>
+                                <tr>
+                                    <th style="width: 95px;">
+                                        <i class="fa fa-date"></i> Tarih
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-briefcase"></i> Firma
+                                    </th>
+                                    <th style="width: 125px;">
+                                        <i class="fa fa-user"></i> Yetkili Kişi
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-phone"></i> Telefon
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-mobile"></i> Konu
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="call in callerList | filter:calls.search | orderBy:'-date' ">
+                                    <td class="item-wrapper">
+                                        {{ call.date | date:'dd-MM-yyyy'}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{ call.company}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{ call.name}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        <a href="tel:{{ call.phone}}">{{ call.phone}}</a>
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{ call.subject}}
+                                        <div class="task-config">
+                                                                <div class="task-config-btn btn-group">
+                                                                    <a class="btn btn-xs default" 
+                                                                        data-toggle="dropdown" 
+                                                                        data-hover="dropdown" 
+                                                                        data-close-others="true">
+                                                                    <i class="fa fa-cog"></i>
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu pull-right">
+                                                                        <li>
+                                                                            <a ui-sref="caller.id({id:call.id})">
+                                                                            <i class="fa fa-pencil"></i> Detay </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a ng-click="delete(call.id)">
+                                                                            <i class="fa fa-trash-o"></i> Sil </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                    </td>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+        $(".nav-tabs a").click(function (e) {
+            e.preventDefault();
+        });
+    }, 100);
+</script>
+<script>
+    jQuery(document).ready(function ($) {
+        Index.initDashboardDaterange();
+        Demo.init();
+        $(".portlet-title").on('keypress', '.inputSearch', function(e) {
+            if(e.keyCode==13){
+                $(".portlet tbody tr").first().find("td+td a").first().click();           
+            }
+        });
+    });
+</script>
+
+<div id="dater" class="daterangepicker dropdown-menu">
+    <div class="calendar left"></div>
+    <div class="calendar right"></div>
+    <div class="ranges">
+
+        <div class="range_inputs">
+            <div class="daterangepicker_start_input">
+                <label for="daterangepicker_start"></label>
+                <input class="input-mini" type="text" name="daterangepicker_start" value="" disabled="disabled" />
+            </div>
+            <div class="daterangepicker_end_input">
+                <label for="daterangepicker_end"></label>
+                <input class="input-mini" type="text" name="daterangepicker_end" value="" disabled="disabled" />
+            </div>
+            <button class="applyBtn" disabled="disabled"></button>&nbsp;
+            <button class="cancelBtn"></button>
+        </div>
+    </div>
+</div>

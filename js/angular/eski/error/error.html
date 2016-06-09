@@ -1,0 +1,181 @@
+<style>
+    .timeline > li .timeline-icon > i {
+        font-size: 24px;
+        line-height: 40px;
+        display: inline;
+    }
+    ul ul.timeline {
+        margin-left: 229px;
+    }
+    .adder{
+        position: relative;
+    }
+    .ticket-textarea{
+        width: 100%;
+        background: transparent;
+        border: 1px dashed #A1B4E5;
+        margin: 5px 0 15px;
+        padding: 5px;
+    }
+    .ticket-text{
+        padding: 5px;
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 2px dashed #A1B4E5;
+        font-size: 20px;
+    }
+    .timeline > li .timeline-body .btn {
+        margin-top: 0px;
+    }
+    .timeline > li .cevap:after {
+        top: 60px;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #fff;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color:    #fff;
+       opacity:  1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color:    #fff;
+       opacity:  1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color:    #fff;
+    }
+    .timeline-body .ticket-state{
+        -webkit-user-select: none; /* Chrome/Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+        -o-user-select: none;
+        user-select: none;
+    }
+    #panel-wrapper{
+        overflow-x: hidden;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Hata Kaydı <small>essente crm</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="/#/">Anasayfa</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#/">Hata Kaydı</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range">
+                    <i class="icon-calendar"></i>
+                    <span></span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" flow-init>
+    <div class="col-md-12">
+        <ul class="timeline">
+           
+            <li class="timeline-yellow view-slide-in" ng-if="errorList.length==0">
+                <div class="timeline-icon">
+                    <i class="fa fa-bug"></i>
+                </div>
+                <div class="timeline-body">
+                    <p>Henüz çözülmeyi bekleyen bir hatanız bulunmamaktadır.</p><br>
+                </div>
+                
+            </li>
+            <li class = "timeline-red view-slide-in" 
+                flow-init
+                data-ng-repeat = "error in errorList | limitTo: limitList">
+                <!-- blue, green, purple, red, grey, timeline-noline-->
+
+                <div class="timeline-time">
+                    <span class="date">
+                        {{error.updated_at*1000 | date:'dd/MM/yyyy'}}
+                    </span>
+                    <span class="time">
+                        {{error.updated_at*1000 | date:'HH:mm'}}
+                    </span>
+                </div>
+
+                <div class="timeline-icon">
+                    <i class="fa fa-check-circle-o" ng-if="error.state=='1'"></i>
+                    <i class="fa fa-times" ng-if="error.state=='0'"></i>
+                </div>
+
+                <div class="timeline-body">
+                    <h2><a href="{{error.page}}" target="_blank" style="color:#fff">{{error.page}}</a></h2>
+                    <div class = "ticket-state" style="float: right; margin-top:-40px;">
+                        <div ng-if="error.state=='1'" ng-click = "errorState(error, '0')" style="background-color: #C7C7C7; cursor:pointer; padding: 2px 9px;">Hata Çözüldü</div>
+                        <div ng-if="error.state=='0'" ng-click = "errorState(error, '1')" style="background-color: #DD4848; cursor:pointer; padding: 2px 9px;">Hata Açık</div>
+                    </div>
+                    <div class="timeline-content" ng-init="error.slice=300;error.slide_hide=false;">
+                        {{error.error | limitTo: error.slice}} 
+                        <a 
+                            ng-hide = "error.slide_hide"
+                            ng-click = "error.slice=1000; error.slide_hide=true"
+                            style="color:#fff; cursor: pointer;font-weight:bold;"
+                        >[...]</a>
+                    </div>
+                </div>
+           </li>
+            <li>
+                <div ng-show="errorList.length>limitList" ng-hide="errorList.length<5"
+                    style="
+                        text-align: center;
+                        padding: 5px;
+                        background: #C9C9C9;
+                        color: #fff;
+                        width: 100%;
+                        margin: 0 auto;">
+                    <a ng-click="limitList=limitList+5;" style="color: #fff;display:block;width:100%;">Devamı...</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+<script>
+    jQuery(document).ready(function ($) {
+        Index.initDashboardDaterange();
+        Demo.init();
+        $(".portlet-title").on('keypress', '.inputSearch', function (e) {
+            if (e.keyCode == 13) {
+                $(".portlet tbody tr").first().find("td+td a").first().click();
+            }
+        });
+        $(".radioCheck").uniform();
+    });
+</script>
+<div id="dater" class="daterangepicker dropdown-menu">
+    <div class="calendar left"></div>
+    <div class="calendar right"></div>
+    <div class="ranges">
+
+        <div class="range_inputs">
+            <div class="daterangepicker_start_input">
+                <label for="daterangepicker_start"></label>
+                <input class="input-mini" type="text" name="daterangepicker_start" value="" disabled="disabled" />
+            </div>
+            <div class="daterangepicker_end_input">
+                <label for="daterangepicker_end"></label>
+                <input class="input-mini" type="text" name="daterangepicker_end" value="" disabled="disabled" />
+            </div>
+            <button class="applyBtn" disabled="disabled"></button>&nbsp;
+            <button class="cancelBtn"></button>
+        </div>
+    </div>
+</div>

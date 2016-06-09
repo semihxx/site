@@ -1,0 +1,141 @@
+<style>
+	#editor{
+		height: 300px;
+		width: 100%;
+	}
+	.alert{
+		float: right;
+		width: 50%;
+	}
+	.txtEkle{
+		float: left;
+		width: 200px;
+	}
+	.btnEkle{
+		float: left;
+	}
+	#content table{
+		float: left;
+	}
+	#editContent {
+		float: left;
+		padding: 0 0 0 2%;
+		width: 75%;
+		margin-top: 5px;
+	}
+	.categoriLink {
+		padding: 0 !important;
+		border-top: 1px solid #fff !important;
+	}
+	.categoriLink a{
+		position: relative;
+		display: block;
+		padding: 7px 10px;
+		text-decoration: none;
+		background: #f0f6fa;
+		border-left: solid 2px #c4d5df;
+		margin-bottom: 1px solid #fff;
+		border-top: none;
+		border-bottom: none;
+		text-overflow:ellipsis;
+	}
+
+	.categoriLink a.active:after {
+		content: '';
+		display: inline-block;
+		border-bottom: 6px solid transparent;
+		border-top: 6px solid transparent;
+		border-left: 6px solid #4b8df8;
+		position: absolute;
+		top: 10px;
+		right: -5px;
+		z-index: 1000;
+	}
+	.categoriLink a:hover{
+		background-color: #eee;
+	}
+	.categoriLink a.active{
+		border-left: solid 2px #137ABB;
+		background-color: #4b8df8;
+		color: #fff;
+	}
+	.categoriLink i{
+		padding: 0 4px 0 0;
+	}
+	.borderClear{
+		border-bottom: none !important;
+	}
+	.catLink{
+		display: inline;
+	}
+	.catList{
+		width: 25%;
+		float: left;
+	}
+	.table>thead>tr>th {
+		border-bottom:none;
+		}
+		.hideCat{
+			display: none;
+		}
+		.categoriLink .leftBorder{
+			border-left: solid 10px #c4d5df;
+		}
+		.catLink a{
+			cursor: pointer;
+		}
+		#txtArama{
+			padding: 0 0 0 10px;
+			height: 28px;
+		}
+		.loadingMail{
+			padding: 0;
+			margin:0;
+		    font-size: 20px;
+		    text-align: center;
+		}
+		.loadingMail i{
+		    font-size: 20px;
+		}
+</style>
+<div ui-view>
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="page-title">
+			MAILBOX <small>gelen kutusu</small>
+			</h3>
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/#/">Anasayfa</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">Mailbox</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<table class="table table-striped flip-content catList">
+		
+		<tbody>
+			<tr ng-repeat="mail in mailData">
+
+				<td class="categoriLink">
+					<div class="catLink">
+						<a ui-sref = "mailbox.uid({uid:mail[3]})"
+						 	ng-class = "{active: isActive('{{mail[3]}}')}">
+						<b>{{mail[1]}}</b> <br> {{mail[2]}}</a>
+					</div>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+	<div id="editContent">
+		<div ng-show="loadingMail" class="loadingMail"><i class="fa fa-refresh fa-spin"></i> Yükleniyor...</div>
+		<iframe id="someId"  style="width:100%; height:400px; overflow:hidden; border:none"></iframe>
+	</div>
+	<div style="clear: both"></div>
+</div>

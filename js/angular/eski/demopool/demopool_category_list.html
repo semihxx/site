@@ -1,0 +1,203 @@
+<style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+            margin-left: -1px;
+            padding-left: 14px; /* Regular padding-left + 1. */
+            width: 401px;
+        }
+
+    .pac-container {
+        font-family: Roboto;
+    }
+
+    #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+    }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #map-canvas {
+        width: 100%;
+        height: 555px;
+    }
+
+    .tab-content > .active {
+        overflow: hidden;
+    }
+    .tabhide{
+        display: none !important;
+    }
+    .tabshow{
+        display: block !important;
+    }
+    .tab-content > .active {
+        overflow-x: auto;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Demo Havuzu <small>site önerileri</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                <i class="fa fa-home"></i>
+                <a href="/#/">Anasayfa</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#/demopool">Demo Havuzu</a>
+                <i class="fa fa-angle-right"></i>
+            </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_11" data-toggle="tab">
+                        Demolar
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab_1_32" data-toggle="tab">
+                        Sektörler
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_11">
+                    <div class="portlet-body profile" ui-view>
+                        <div style="clear: both"></div>
+                        <br>
+
+                        <table class="task-content table table-striped table-bordered table-advance table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fa fa-briefcase"></i> Sektörler
+                                    </th>
+                                    <th>
+                                        İşlem
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="sector in sectorList ">
+                                    <td class="item-wrapper">
+                                        {{ sector.name}} ({{ sector.count}})
+                                    </td>
+                                    <td class="item-wrapper">
+                                        <a class="btn default btn-xs green-stripe"
+                                           ui-sref="demopool.id({id:sector.id})">
+                                            önerileri gör
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_1_32">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+
+                                <div class="portlet-body profile">
+                                    <div style="clear: both"></div>
+                                    <br>
+
+                                    <table class="task-content table table-striped table-bordered table-advance table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <i class="fa fa-briefcase"></i> Sektör Adı
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="sector in sectorList ">
+                                                <td class="item-wrapper">
+                                                    <a editable-text="sector.name"
+													onbeforesave="updatesector(sector.id, $data)">
+														{{ sector.name}}
+													</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Yeni Sektör</label>
+                                    <input type="text"
+                                           placeholder="Yeni Sektör"
+                                           ng-model="newsector.name"
+                                           class="form-control" />
+                                </div>
+                                <div class="margiv-top-10">
+                                    <a class="btn green" ng-click="save.sector()">
+                                        Kaydet
+                                    </a>
+                                    <a href="#" class="btn default">
+                                        İptal
+                                    </a>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="alert alert-{{durumClass}}">
+                                        {{Durum}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+        $(".tabbable a").click(function (e) {
+            e.preventDefault();
+        });
+    }, 100);
+</script>

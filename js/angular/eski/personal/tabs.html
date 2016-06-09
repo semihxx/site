@@ -1,0 +1,37 @@
+<div class="profile" id="personal">
+	<div class="tabbable tabbable-custom tabbable-full-width">
+		<ul class="nav nav-tabs usttab">
+			<li class="active">
+				<a href="#tab_1_1" data-toggle="tab">
+				Personel Profili </a>
+			</li>
+			<li>
+				<a href="#tab_1_3" data-toggle="tab">
+				Account </a>
+			</li>
+		</ul>
+		<div class="tab-content">
+
+            <div class="tab-pane active" id="tab_1_1" ui-view="personal.tabs-1"></div>
+            <div class="tab-pane" id="tab_1_3" ui-view="personal.tabs-2"></div>
+
+		</div>
+	</div>
+</div>
+<script>
+	jQuery(function($){
+		setTimeout(function(){
+			$(".nav-tabs a,.ver-inline-menu a").click(function(e){
+					e.preventDefault();
+			});
+
+			$("#yenigorev").unbind('keypress');
+			$("#tab_1_1").on('keypress', '#yenigorev', function(e) {
+				if(e.keyCode==13){
+					$("#btngorev").click();
+				}
+			});
+			
+		},0);
+	});
+</script>

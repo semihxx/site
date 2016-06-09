@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3 class="page-title"> {{Pages.banner.title}}
+			<small ng-bind="Pages.banner.desc"></small>
+		</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/#/">Anasayfa</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a ng-bind="Pages.banner.thumbcrumb.text">
+					</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+			</ul>
+
+		<div class="page-toolbar">
+                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range">
+                    <i class="icon-calendar"></i>
+                    <span></span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+		</div>
+
+	</div>
+</div>
+
+<div class="row" id="page-wrapper">
+	<div class="col-md-12" ui-view></div>
+</div>
+
+<div id="dater" class="daterangepicker dropdown-menu">
+    <div class="calendar left"></div>
+    <div class="calendar right"></div>
+    <div class="ranges">
+
+        <div class="range_inputs">
+            <div class="daterangepicker_start_input">
+                <label for="daterangepicker_start"></label>
+                <input class="input-mini" type="text" name="daterangepicker_start" value="" disabled="disabled" />
+            </div>
+            <div class="daterangepicker_end_input">
+                <label for="daterangepicker_end"></label>
+                <input class="input-mini" type="text" name="daterangepicker_end" value="" disabled="disabled" />
+            </div>
+            <button class="applyBtn" disabled="disabled"></button>&nbsp;
+            <button class="cancelBtn"></button>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function($) {
+        Index.initDashboardDaterange();
+   
+        setTimeout(function(){
+           
+            $('#page-wrapper').on('click', '.nav-tabs', function(e) {
+                e.preventDefault();
+            });
+            
+            $("#tab_1_1").unbind('keypress');
+            $("#tab_1_1").on('keypress', "textarea.editable-has-buttons", function(e) {
+                if(e.keyCode==13){
+                    $(".editable-buttons .btn-primary").click();
+                }
+            });
+        }, 0);
+    });
+</script>
+ 

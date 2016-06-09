@@ -1,0 +1,98 @@
+<style>
+    .chat-form .btn-cont{
+        margin-right: 0;
+    }
+</style>
+<table  class="task-content table table-striped table-bordered table-advance">
+    <tr style="vertical-align: top;">
+        <td style="width:20%;vertical-align: top!important;">
+                        <table class="task-content table table-striped table-bordered table-advance table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fa fa-briefcase"></i> Kategoriler
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="category in categoryList ">
+                                    <td class="item-wrapper">
+                                        <a ui-sref="mailing.listeid({listeid:category.id})">
+                                            {{ category.name}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+        </td>
+        <td style="vertical-align: top!important;">
+           <div id="ekle" class="row search-form-default" style="width: 100%;margin: 0;">
+                                                    
+                                                <div class="chat-form" style="margin:0;">
+                                                    <div class="input-cont">
+                                                        <input class="form-control" 
+                                                            type="text" 
+                                                            id="yenigorev"
+                                                            ng-model    = "mailingList.email"
+                                                            placeholder =  "Mail Ekle..." >
+                                                    </div>
+                                                    <div class="btn-cont"
+                                                        id       ="btngorev"
+                                                        ng-click = "saveEmail()">
+                                                        <span class="arrow">
+                                                        </span>
+                                                        <a href="" class="btn blue icn-only">
+                                                        <i class="fa fa-check icon-white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                          </div>
+                                          <div class="portlet-body">
+                                          <table class="task-content table table-bordered table-advance table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <i class="fa fa-briefcase"></i> E-mail
+                                                        </th>
+                                                        <th class="hidden-xs" style="width: 70px;">
+                                                            <i class="fa fa-user"></i> İşlem
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="email in emailList">
+                                                       
+                                                        <td class="item-wrapper">
+                                                              {{email.email}}
+                                                        </td>
+                                                      
+                                                        <td class="hidden-xs personmission">
+                                                          <a class="btn default btn-xs red-stripe" 
+                                                             ng-click = "delete(email.id)">
+                                                            Sil</a>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+</div> 
+        </td>
+    </tr>
+</table>
+<script>
+  jQuery(function($){
+    
+    setTimeout(function(){
+
+      $("#yenigorev").unbind('keypress');
+      $("#ekle").on('keypress', '#yenigorev', function(e) {
+        if(e.keyCode==13){
+          $("#btngorev").click();
+        }
+      });
+
+      
+    }, 0);
+    
+  });
+</script>

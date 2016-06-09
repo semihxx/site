@@ -1,0 +1,123 @@
+<style>	
+		.star {
+			padding: 0px 0 0 3px;
+			color: #F3565D;
+			float: left;
+			font-size: 17px;
+			cursor: pointer;
+		}
+
+</style>
+<div class="row">
+	<div class="col-md-12" ui-view>
+		<div class="profile" id="project">
+			<div class="tabbable tabbable-custom tabbable-custom-profile">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#tab_1_11" data-toggle="tab">
+						Devam Eden Görevler</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_11">
+						<div class="row search-form-default">
+							<div class="col-md-12">
+								<form action="#">
+									<div class="input-group">
+										<div class="input-cont">
+											<input type="text" placeholder="Görev Ara..." 
+													ng-model = "searchMission" 
+													class="form-control">
+										</div>
+										<span class="input-group-btn">
+											<button type="button" class="btn green-haze">
+												Ara &nbsp; <i class="m-icon-swapright m-icon-white"></i>
+											</button>
+										</span>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<div class="portlet-body">
+							<table class="table table-striped table-bordered table-advance table-hover">
+								<thead>
+									<tr>
+										<th>
+											
+										</th>
+										<th>
+											<i class="fa fa-briefcase"></i> Görev Adı
+										</th>
+										<th class="hidden-xs" style="width: 16%;">
+											<i class="fa fa-user"></i> Görev Sorumlusu
+										</th>
+										<th class="hidden-xs">
+											<i class="fa fa-user"></i> Proje
+										</th>
+										<th>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="mission in missionList | filter: searchMission | orderBy: ['-priority','-id']">
+										<th style = "width: 26px;">
+											<i class = "fa fa-star active{{mission.priority}} star"
+											ng-click = "priority_project( mission ); "
+											></i>
+										</th>
+										<td>
+											<a ui-sref="main.project.tabs({id: mission.project_id})"
+												ng-bind="mission.name">
+												{{mission}}
+											</a>
+
+										</td>
+										<td class="hidden-xs">
+											<a ui-sref="main.personal.detail.id({id: mission.person_id})"
+												ng-bind="mission.person">
+											</a>
+										</td>
+										<td class="hidden-xs">
+											<a ui-sref="main.project.tabs({id: mission.project_id})"
+												ng-bind="mission.prname">
+											</a>
+										</td>
+										<td>
+											<a class="btn default btn-xs green-stripe" 
+												ng-click="duzenle()"
+												ui-sref="mission.id({id:mission.id})">
+											düzenle </a>
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<script>
+	jQuery(function($){
+
+		setTimeout(function(){
+			$(".nav-tabs").click(function(e){
+				e.preventDefault();
+			});
+			 $('.tabbable').on('keypress', '.input-cont input', function(e) {
+			 	console.log("1");
+              if(e.keyCode==13){
+                e.preventDefault();
+                $(".tabbable").first().find("td a").first().click();           
+              }
+            });
+		});
+
+		 
+
+	});
+</script>

@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+               
+                <li class="active">
+                    <a href="#tab_1_32" data-toggle="tab">
+                        Sektörler
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+              
+                <div class="tab-pane active" id="tab_1_32">
+                            <div class="col-md-6">
+
+                                <div class="portlet-body profile">
+                                    <div style="clear: both"></div>
+                                    <br>
+
+                                    <table class="task-content table table-striped table-bordered table-advance table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <i class="fa fa-briefcase"></i> Sektör Adı
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="sector in sectorList ">
+                                                <td class="item-wrapper">
+                                                    <a editable-text="sector.name"
+													onbeforesave="updatesector(sector.id, $data)">
+														{{ sector.name}}
+													</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Yeni Sektör</label>
+                                    <input type="text"
+                                           placeholder="Yeni Sektör"
+                                           ng-model="newsector.name"
+                                           class="form-control" />
+                                </div>
+                                <div class="margiv-top-10">
+                                    <a class="btn green" ng-click="save.sector()">
+                                        Kaydet
+                                    </a>
+                                    <a href="#" class="btn default">
+                                        İptal
+                                    </a>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="alert alert-{{durumClass}}">
+                                        {{Durum}}
+                                    </div>
+                                </div>
+                            </div>
+                    <div style="clear: both;"></div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+        $(".tabbable a").click(function (e) {
+            e.preventDefault();
+        });
+    }, 100);
+</script>

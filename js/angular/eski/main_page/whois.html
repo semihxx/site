@@ -1,0 +1,133 @@
+<style>
+	.whoisloading{
+		text-align: center;
+		height: 120px;
+		padding: 46px;
+	}
+	.whoisloading i{
+		font-size: 26px;
+		color: #44b6ae;
+	}
+	.whois-close a i{
+		color: #FFFFFF;
+		font-size: 17px;
+		line-height: 37px;
+	}
+</style>
+<div class="row">
+	<div class="col-md-12">
+
+		<div ng-hide="whoisLoading" class="whoisloading">
+			<i class="fa fa-refresh fa-spin"></i>
+		</div>
+
+	<div class="col-md-12 whoisloading" ng-hide="whoisUnLoaded">
+		Bu isimde bir domain bulunamadı...
+	</div>
+	<div class="col-md-12" ng-hide="whoisLoaded">
+	<div class="portlet box green-haze">
+            <div class="portlet-title">
+            
+                <div class="caption">
+                    <i class="fa fa-cloud"></i> 
+                    <span>Domain Sorgulama</span>
+                </div>
+               <div class="whois-close" style="float: right; color: #fff;">
+               		<a href="#/home">
+               			<i class="fa fa-times"></i>
+               		</a>
+               </div>
+            </div>
+		<div class="portlet-body">
+							<table class="table table-striped table-bordered table-advance table-hover">
+							
+								<tbody>
+									<tr>
+										<td style="width: 15%;">
+											<b>Domain Sahibi:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.name || domainDetail.WhoisRecord.registryData.registrant.name}}
+										</td>
+										<td  style="width: 15%;">
+											<b>Firma:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.organization || domainDetail.WhoisRecord.registryData.registrant.organization}}
+										</td>
+										<td  style="width: 15%;">
+											<b>Telefon:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.telephone || domainDetail.WhoisRecord.registryData.registrant.telephone}}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Oluşturulma Tarihi:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registryData.createdDateNormalized || domainDetail.WhoisRecord.registryData.audit.createdDate.$}}
+										</td>
+										<td>
+											<b>Güncelleme Tarihi:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registryData.updatedDateNormalized || domainDetail.WhoisRecord.registryData.audit.updatedDate.$}}
+										</td>
+										<td>
+											<b>Bitiş Tarihi:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registryData.expiresDateNormalized}}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Adres:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.street1 || domainDetail.WhoisRecord.registryData.registrant.street1}} /
+											{{domainDetail.WhoisRecord.registrant.country || domainDetail.WhoisRecord.registryData.registrant.country}}
+										</td>
+										<td>
+											<b>Fax:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.fax || domainDetail.WhoisRecord.registryData.registrant.fax}}
+										</td>
+										<td>
+											<b>E-mail:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registrant.email || domainDetail.WhoisRecord.registryData.registrant.email}}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Name Server:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registryData.nameServers.rawText}}
+										</td>
+										<td>
+											<b>registrarName:</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.registryData.whoisServer}}
+										</td>
+										<td>
+											<b>Ort. Domain Yaşı (gün):</b>
+										</td>
+										<td>
+											{{domainDetail.WhoisRecord.estimatedDomainAge}}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+	</div>
+	
+</div>
+</div>

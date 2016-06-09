@@ -1,0 +1,69 @@
+<style>
+    .fc-event-container .active{
+        background:#53B3FD!important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Takvim <small>hatırlatıcı ve ajanda</small>
+        </h3>
+       
+    </div>
+</div>
+        <div role="main">
+            <div>
+                    <div class="portlet box green-meadow calendar">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Essente Ajanda
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <div id="external-events">
+
+                                        <div>
+                                        <br>
+                                            <table class="task-content table table-striped table-bordered table-advance table-hover ">
+                                                <tbody>
+                                                    <tr data-ng-repeat="event in events | unique: 'start' | filter: greaterThan('start') | orderBy: 'start'  ">
+                                                        <td class="item-wrapper">
+                                                            <span style="color: #888;font-family: 'Open Sans', sans-serif; display: block;background: #eee;padding: 2px 5px;margin-bottom:5px">
+                                                                {{dateFormatter(event.start) | date: 'dd MMM yyyy'}}
+                                                            </span> 
+                                                            <table>
+                                                                <tr data-ng-repeat="event1 in events | filter: filterFunction(event.start)">
+                                                                    <td style="color:#777; padding: 2px;">
+                                                                        <i style="color: #1bbc9b" class="fa fa-caret-right"></i> 
+                                                                        {{event1.title}}
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9 col-sm-12">
+
+                                    <div id='calendar' class="has-toolbar calendar" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(function($){
+                
+            });
+        </script>

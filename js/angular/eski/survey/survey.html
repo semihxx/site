@@ -1,0 +1,122 @@
+<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 nopadding">
+								<div class="row search-form-default">
+											<div class="col-md-12">
+													
+												<div class="chat-form" style="margin:0;">
+													<div class="input-cont">
+														<input class="form-control" 
+															type="text" 
+															id="yenigorev2"
+															ng-model 	= "newLink"
+															placeholder =  "Link Ekle..." >
+													</div>
+													<div class="btn-cont"
+														id		 ="btngorev2"
+														ng-click = "addDemoLink()">
+														<span class="arrow">
+														</span>
+														<a class="btn blue icn-only">
+														<i class="fa fa-check icon-white"></i>
+														</a>
+													</div>
+												</div>
+
+										<div class="portlet-body">
+											<table class="task-content table table-bordered table-advance table-hover">
+												<thead>
+													<tr>
+														<th style="width: 135px;">
+															<i class="fa fa-star"></i>
+															Puanla
+														</th>
+														<th>
+															<i class="fa fa-code-fork"></i> Oylanacak Linkler
+														</th>
+														<th>
+															Toplam Puan
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="survey in surveyList | orderBy: ['-id']">
+														<td style="width: 50px;padding-right: 0;padding-left: 0;padding-top: 11px;line-height: 36px;margin: 0;padding: 0;" class="personmission">
+															<div class="rating" >
+																<span 
+																	ng-class 	= "{active:survey.star==5}"
+																	class 		= "star" 
+																	data-ng-click = "updatePoint(survey, 5);"></span>
+																<span 
+																	ng-class 	= "{active:survey.star==4}"
+																	class 		= "star" 
+																	data-ng-click = "updatePoint(survey, 4);"></span>
+																<span 
+																	ng-class 	= "{active:survey.star==3}"
+																	class 		= "star" 
+																	data-ng-click = "updatePoint(survey, 3);"></span>
+																<span 
+																	ng-class 	= "{active:survey.star==2}" 
+																	class 		= "star" 
+																	data-ng-click = "updatePoint(survey, 2);"></span>
+																<span 
+																	ng-class 	= "{active:survey.star==1}" 
+																	class 		= "star" 
+																	data-ng-click = "updatePoint(survey, 1);"></span>
+															</div>
+															
+														</td>
+														<td class="item-wrapper">
+															<a target="_blank" href="{{survey.link}}" ng-bind = "survey.link">
+															</a>
+															<div class="task-config">
+																<div class="task-config-btn btn-group">
+																	<a class="btn btn-xs default" 
+																		data-toggle="dropdown" 
+																		data-hover="dropdown" 
+																		data-close-others="true">
+																	<i class="fa fa-cog"></i>
+																	<i class="fa fa-angle-down"></i>
+																	</a>
+																	<ul class="dropdown-menu pull-right">
+																		<li>
+																			<a ng-click="delete(survey.id, $index)">
+																			<i class="fa fa-trash-o"></i> İptal </a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="progress progress-striped" style="margin: 0;">
+																<div style="width: {{(survey.total*100)/5}}%;" class="progress-bar progress-bar-danger" aria-valuenow=" {{(survey.total*100)/5}}" aria-valuemin="0" aria-valuemax="100">
+																	<div>
+																		 {{(survey.total*100)/5}}% 
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+											</div>
+										</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+<script>
+	jQuery(function($){
+		setTimeout(function(){
+			$("#yenigorev2").unbind('keypress');
+			$("#tab_1_4").on('keypress', '#yenigorev2', function(e) {
+				if(e.keyCode==13){
+					$("#btngorev2").click();
+				}
+			});
+		}, 0);
+	});
+</script>

@@ -1,0 +1,137 @@
+<div class="row profile-account">
+					<div class="col-md-12">
+						<div class="tab-content">
+							<div id="tab_1-1" class="tab-pane active">
+								<form role="form" action="#">
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Proje Adı</label>
+												<input type  = "text"
+												placeholder  = "Proje Adı"
+												ng-model 	 = "edit.name"
+												class 		 = "form-control"/>
+											</div>
+											
+											
+											<div class="form-group">
+												<label class="control-label">Başlangıç Tarihi:</label>
+												<input type="text" 
+													class="form-control"
+													ng-model 		= "edit.start"
+													data-date-format="dd-MM-yyyy" 
+													data-date-type	="string" 
+													data-autoclose	="1" 
+													name = "date2" 
+													bs-datepicker>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Bitiş Tarihi:</label>
+												<input type="text" 
+													class="form-control"
+													ng-model 		= "edit.end"
+													data-date-format="dd-MM-yyyy" 
+													data-date-type	="string" 
+													data-autoclose	="1" 
+													name = "date2" 
+													bs-datepicker>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Mevcut Web Site:</label>
+												<input type="text" 
+												class = "form-control"
+												ng-model 		= "edit.web"
+												placeholder = "Mevcut Web Site"></input>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Ftp Sunucu</label>
+												<input type = "text"
+												ng-model 	= "edit.ftp_sunucu"
+												placeholder = "Ftp Sunucu"
+												class 		= "form-control"/>
+												<label class="control-label">Ftp Kullanıcı Adı</label>
+												<input type = "text"
+												ng-model 	= "edit.ftp_kullanici"
+												placeholder = "Ftp Kullanıcı Adı"
+												class 		= "form-control"/>
+												<label class="control-label">Ftp Şifre</label>
+												<input type = "text"
+												ng-model 	= "edit.ftp_sifre"
+												placeholder = "Ftp Şifre"
+												class 		= "form-control"/>
+											</div>
+											<div style="clear: both"></div>
+													<br>
+													<div class="form-group">
+														<div class="alert alert-{{durumClass}}">
+									            {{Durum}}
+									          </div>
+									        </div>
+											
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class 	= "control-label">Proje Sorumlusu</label>
+												<select 
+													id 			= "selectedPerson" 
+													class 		= "form-control"
+													ng-model	= "edit.person_id"
+													ng-options	= "personalalt.id as personalalt.name for personalalt in personalList">
+													<option value="" selected="selected">Seçiniz:</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label class 	= "control-label">Çalışma Grubu</label>
+												 <br>
+												<button type="button" class="btn btn-default" 
+													ng-model="edit.selectedGroups" 
+													data-html="1" 
+													data-multiple="1" 
+													data-animation="am-flip-x" 
+													ng-options="group.id as group.name for group in groupList" 
+													bs-select>
+											      Action <span class="caret"></span>
+											    </button>
+											</div>
+											<div class="form-group">
+												<label class 	= "control-label">Müşteri</label>
+												<input type="text" 
+												id="customerdata"
+													class="form-control" 
+													ng-model="edit.customerID" 
+													ng-options="customer.id as customer.company for customer in getCustomer($viewValue)" 
+													placeholder="Müşteri Firması" 
+													bs-typeahead>
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Açıklama</label>
+												<textarea class = "form-control"
+												ng-model 		= "edit.desc"
+												rows 			= "4"
+												placeholder = "Açıklama (Örnek siteler, notlar, talepler vs.)"></textarea>
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Doküman Bilgiler</label>
+												<textarea class="form-control"
+												rows 				= "3"
+												ng-model 		= "edit.doclinks"
+												placeholder = "Doküman Bilgiler"></textarea>
+											</div>
+											<div class="margiv-top-10">
+												<a class="btn green" ng-click="updateProject()">
+												Kaydet </a>
+												<a href="#" class="btn default">
+												İptal </a>
+											</div>
+										</div>
+									</div>
+									
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+

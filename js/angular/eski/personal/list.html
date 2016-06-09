@@ -1,0 +1,235 @@
+
+- personel sil uyarı pop up açılacak.
+<div class="row">
+	<div class="col-md-12" ui-view>
+		<div class="tabbable tabbable-custom tabbable-custom-profile">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#tab_1_11" data-toggle="tab">
+						Personeller</a>
+					</li>
+					<li>
+						<a href="#tab_1_22" data-toggle="tab">
+						Personel Ekle</a>
+					</li>
+					<li>
+						<a href="#tab_1_32" data-toggle="tab">
+						Personel Çalışma Grupları</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_11">
+						<div class="portlet box red">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-user"></i> Personel Bilgileri
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="table-scrollable">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Adı, Soyadı</th>
+												<th>Çalışma Grubu</th>
+												<th>Görevi</th>
+												<th>Cep No</th>
+												<th>E-Mail</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="personal in personalList">
+												<td>{{$index+1}}</td>
+												<td>
+													<a ui-sref = "main.personal.detail.id({id: '{{personal.id}}'})">
+														{{::personal.name}}
+													</a>
+												</td>
+												<td>
+													<a ui-sref = "main.personal.list.id({grup: '{{personal.pt_id}}'})">
+														{{::personal.pt_name}}
+													</a>
+												</td>
+												<td>{{::personal.type}}</td>
+												<td>{{::personal.mobile}}</td>
+												<td>{{::personal.email}}</td>
+												<td>
+													<a href="#/personal/list" ng-click="delete( personal.id )">
+														<span class="label label-sm label-danger">
+														Personeli Sil</span>
+													</a>
+												</td>
+											</tr>
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_22">
+						<form role="form" action="#">
+									<div class="form-group">
+										<label class="control-label">Adınız, Soyadınız</label>
+										<input type 			 = "text"
+										placeholder = "Adınız, Soyadınız"
+										ng-model 	 = "new.name"
+										class 			 = "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Açıklama</label>
+										<textarea class = "form-control"
+										ng-model = "new.desc"
+										rows = "3"
+										placeholder = "Açıklama"></textarea>
+									</div>
+									<div class="form-group">
+										<label class = "control-label">Görev Tanımı</label>
+										<select 
+											id = "gorevTanim"
+											class = "form-control"
+											ng-model="new.typeID"
+											ng-options="typealt.id as typealt.type for typealt in typeList">
+												<option value="" selected="selected">Seçiniz:</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class = "control-label">Çalışma Grubu</label>
+										<select 
+											id = "gorevTanim"
+											class = "form-control"
+											ng-model="new.group_id"
+											ng-options="groupalt.id as groupalt.name for groupalt in groupList">
+												<option value="" selected="selected">Seçiniz:</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Telefon No:</label>
+										<input type = "text"
+										ui-mask 	= "9 (999) 999 99 99"
+										placeholder = "_ (___) ___ __ __"
+										ng-model 	= "new.phone"
+										class 		= "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class = "control-label">Cep Telefon</label>
+										<input type  = "text"
+										ui-mask 	 = "9 (999) 999 99 99"
+										ng-model 	 = "new.mobile"
+										placeholder  = "_ (___) ___ __ __" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class= "control-label">E-Mail</label>
+										<input type = "text"
+										class 		= "form-control" rows="3"
+										ng-model 	= "new.email"
+										placeholder = "Şirket E-Mail Adresiniz"></textarea>
+									</div>
+									<div class="form-group">
+										<label class= "control-label">E-Mail Şifre</label>
+										<input type = "password"
+										ng-model 	= "new.emailpwd"
+										placeholder = "Şirket E-Mail Şifreniz"
+										class 		= "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Doğum Tarihi</label>
+										<input type="text" 
+											class="form-control"
+											ng-model 		= "new.birth_date"
+											data-date-format="yyyy-MM-dd" 
+											data-date-type	="number" 
+											data-max-date	="today" 
+											data-autoclose	="1" 
+											name = "date2" 
+											bs-datepicker>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Önceki Deneyimler</label>
+										<textarea class="form-control"
+										rows 		= "3"
+										ng-model 	= "new.experience"
+										placeholder = "Önceki Deneyimler"></textarea>
+									</div>
+									<div class="margiv-top-10">
+										<a class="btn green" ng-click="savePersonal1()">
+										Kaydet </a>
+										<a href="#" class="btn default">
+										İptal </a>
+									</div>
+									<br>
+									<div class="form-group">
+										<div class="alert alert-{{durumClass}}">
+					                        {{Durum}}
+					                    </div>
+									</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="tab_1_32">
+	                            <div class="col-md-6">
+
+	                                <div class="portlet-body profile">
+	                                    <div style="clear: both"></div>
+	                                    <br>
+
+	                                    <table class="task-content table table-striped table-bordered table-advance table-hover">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>
+	                                                    <i class="fa fa-briefcase"></i> Çalışma Grubu
+	                                                </th>
+	                                            </tr>
+	                                        </thead>
+	                                        <tbody>
+	                                            <tr ng-repeat="group in groupList ">
+	                                                <td class="item-wrapper">
+	                                                    <a editable-text="group.name"
+														onbeforesave="updateGroup(group.id, $data)">
+															{{::group.name}}
+														</a>
+	                                                </td>
+	                                            </tr>
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+
+	                            </div>
+	                            <div class="col-md-6">
+	                                <div class="form-group">
+	                                    <label class="control-label">Yeni Çalışma Grubu</label>
+	                                    <input type="text"
+	                                           placeholder="Yeni Sektör"
+	                                           ng-model="newgroup.name"
+	                                           class="form-control" />
+	                                </div>
+	                                <div class="margiv-top-10">
+	                                    <a class="btn green" ng-click="saveGroup()">
+	                                        Kaydet
+	                                    </a>
+	                                    <a href="#" class="btn default">
+	                                        İptal
+	                                    </a>
+	                                </div>
+	                                <br>
+	                                <div class="form-group">
+	                                    <div class="alert alert-{{durumClass}}">
+	                                        {{Durum}}
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div style="clear: both"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+<script>
+	setTimeout(function(){  // burası ile başka bir zamanda yine ilgilenilebilir.
+		$(".tabbable a").click(function(e){
+			e.preventDefault();
+		});
+	}, 100);
+</script>

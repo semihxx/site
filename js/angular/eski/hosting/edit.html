@@ -1,0 +1,92 @@
+<div class="profile" id="personal">
+                <div class="row profile-account">
+                    <div class="col-md-12">
+                    <br>
+
+                        <div class="margiv-top-20">
+                        <a class="btn green" href="#/hosting">
+                            &lt; Geri Dön </a>
+                    </div>
+                    <br>
+                                <form role="form" action="#">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Domain Adı</label>
+                                        <input type="text"
+                                           placeholder="Domain Adı"
+                                           ng-model="edit.domain"
+                                           class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Projeler</label>
+                                        <select class="form-control"
+                                                ng-model="edit.project_id"
+                                                ng-options="sectoralt.id as sectoralt.name for sectoralt in projectList">
+                                            <option value="" selected="selected">Seçiniz:</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Hosting Firması</label>
+                                        <input type="text"
+                                               placeholder="Hosting Firması"
+                                               ng-model="edit.hosting_firma"
+                                               class="form-control" />
+                                    </div>
+                                    <div class="margiv-top-10">
+                                        <a class="btn green" ng-click="update(edit)">
+                                        Güncelle </a>
+                                        <a href="#" class="btn default">
+                                        İptal </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label">Platform</label>
+                                        <select class="form-control"
+                                                ng-model="edit.platform">
+                                            <option value="">Seçiniz</option>
+                                            <option value="Windows">Windows</option>
+                                            <option value="Linux">Linux</option>
+                                        </select>
+                                    </div>
+                                       <div class="form-group">
+                                        <label class="control-label">Müşteri</label>
+                                        <input type="text"
+                                              id="customerdata"
+                                               class="form-control"
+                                               ng-model="edit.customer_id"
+                                               ng-options="customer.id as customer.company for customer in getCustomer($viewValue)"
+                                               placeholder="Müşteri Firması"
+                                               bs-typeahead>
+                                    </div>
+                                   
+                                     <div class="form-group">
+                                        <label class="control-label">Hosting Bitiş</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="edit.hosting_bitis"
+                                               data-date-type="string"
+                                               data-date-format="yyyy-MM-dd"
+                                               name="date2"
+                                               data-autoclose="1"
+                                               bs-datepicker>
+                                    </div>
+                                 
+                                    
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="alert alert-{{durumClass}}">
+                                            {{Durum}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                                <div style="clear: both;"></div>
+
+<br>
+                            
+        </div>
+</div>
+</div>

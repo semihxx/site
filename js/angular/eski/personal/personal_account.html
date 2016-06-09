@@ -1,0 +1,140 @@
+<div class="row profile-account">
+					<div class="col-md-3">
+						<ul class="ver-inline-menu tabbable margin-bottom-10">
+							<li class="active">
+								<a data-toggle="tab" href="#tab_1-1">
+								<i class="fa fa-cog"></i> Personel Bilgileri </a>
+								<span class="after">
+								</span>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#tab_3-3">
+								<i class="fa fa-lock"></i> Şifre Değiştir </a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-9">
+						<div class="tab-content">
+							<div id="tab_1-1" class="tab-pane active">
+								<form role="form" action="#">
+									<div class="form-group">
+										<label class="control-label">Adınız, Soyadınız</label>
+										<input type = "text"
+										placeholder = "Adınız, Soyadınız"
+										ng-model 	= "personal.name"
+										class 		= "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Açıklama</label>
+										<textarea class = "form-control"
+										ng-model = "personal.desc"
+										rows = "3"
+										placeholder = "Açıklama"></textarea>
+									</div>
+									<div class="form-group">
+										<label class = "control-label">Görev Tanımı</label>
+										<select 
+											id = "gorevTanim"
+											class = "form-control"
+											ng-model="personal.typeID"
+											ng-options="gorevalt.id as gorevalt.type for gorevalt in typeList">
+												<option value="" selected="selected">Seçiniz:</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class = "control-label">Çalışma Grubu</label>
+										<select 
+											id = "gorevTanim"
+											class = "form-control"
+											ng-model="personal.group_id"
+											ng-options="groupalt.id as groupalt.name for groupalt in groupList">
+												<option value="" selected="selected">Seçiniz:</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Telefon No:</label>
+										<input type = "text"
+										ui-mask 	= "+99 (999) 999 99 99"
+										placeholder = "+__ (___) ___ __ __"
+										ng-model 	= "personal.phone"
+										class 		= "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class= "control-label">Cep Telefon</label>
+										<input type = "text"
+										ui-mask		= "9 (999) 999 99 99"
+										ng-model 	= "personal.mobile"
+										placeholder	= "_ (___) ___ __ __" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class= "control-label">E-Mail</label>
+										<input type = "text"
+										class 	  	= "form-control" 
+										ng-model 	= "personal.email"
+										placeholder = "Şirket E-Mail Adresiniz"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">E-Mail Şifre</label>
+										<input type = "password"
+										ng-model 	= "personal.emailpwd"
+										placeholder = "Şirket E-Mail Şifreniz"
+										class 		= "form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Doğum Tarihi</label>
+										<input type="text" 
+											class="form-control"
+											ng-model 		= "personal.birth_date"
+											data-date-format="dd-MM-yyyy" 
+											data-date-type	="string" 
+											data-autoclose	="1" 
+											name = "date2" 
+											bs-datepicker>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Önceki Deneyimler</label>
+										<textarea class="form-control"
+										rows 		= "3"
+										ng-model 	= "personal.experience"
+										placeholder = "Önceki Deneyimler"></textarea>
+									</div>
+									<div class="margiv-top-10">
+										<a class="btn green" ng-click="savePersonal()">
+										Güncelle </a>
+										<a href="#" class="btn default">
+										İptal </a>
+									</div>
+									<br>
+									<div class="form-group">
+										<div class="alert alert-{{durumClass}}">
+					                        {{Durum}}
+					                    </div>
+									</div>
+								</form>
+							</div>
+							<div id="tab_3-3" class="tab-pane">
+								<form action="#">
+									
+									<div class="form-group">
+										<label class="control-label">Yeni Şifreniz</label>
+										<input type="password" ng-model="newPassword" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Tekrar Yeni Şifreniz</label>
+										<input type="password" ng-model="renewPassword" class="form-control"/>
+									</div>
+									<div class="margin-top-10">
+										<a class="btn green" ng-click="changePassword()">
+										Şifreniyi Değiştirin </a>
+										<a class="btn default">
+										İptal </a>
+									</div>
+									<div>
+										{{sifreDurum}}
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--end col-md-9-->
+				</div>

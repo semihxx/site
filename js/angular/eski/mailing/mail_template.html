@@ -1,0 +1,120 @@
+<script src="js/editor/tinymce.min.js"></script>
+<style>
+	#editor{
+		height: 600px;
+	}
+	#onizle{
+		height:600px;width:100%;
+		
+	}
+	.onizleContainer{
+		position: absolute;
+		top: 0;
+		right: -693px;
+		height: 600px;
+		width: 100%;
+	}
+	.btnOnizle{
+		position: absolute;
+		left: -48px;
+		padding: 10px;
+		background: rgb(68, 182, 174);
+		color: #fff;
+		cursor: pointer;
+	}
+</style>
+<div class="margiv-top-20">
+	<a class="btn green" href="#/mailing">
+		&lt; Geri Dön </a>
+</div>
+	<textarea id="editor" data-ui-tinymce data-ng-model="txtEditor"></textarea>
+	<button ng-click="save()" onclick="return false;" class="btnEkle btn blue">Kaydet</button>
+<div>
+	<style>
+		.anahtar td{
+			padding: 2px 4px;
+		}
+	</style>
+	<h3>Domain anahtar Kelimeler</h3>
+
+	<table class="anahtar">
+		<tr>
+			<td>&#123; &#123;$email&#125;&#125;</td>
+			<td>Gönderilen E-Mail Adresi Sahibi</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$name&#125;&#125;</td>
+			<td>Domain Sahibi Adı</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$domain&#125;&#125;</td>
+			<td>Domain Adı</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$hosting_bitis&#125;&#125;</td>
+			<td>Hosting Bitiş Tarihi</td>
+		</tr>
+	</table>
+
+	<h3>Personel anahtar Kelimeler</h3>
+
+	<table class="anahtar">
+		<tr>
+			<td>&#123; &#123;$email&#125;&#125;</td>
+			<td>Gönderilen E-Mail Adresi Sahibi</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$name&#125;&#125;</td>
+			<td>Personel Adı</td>
+		</tr>
+	</table>
+	
+	<h3>Müşteri anahtar Kelimeler</h3>
+
+	<table class="anahtar">
+		<tr>
+			<td>&#123; &#123;$email&#125;&#125;</td>
+			<td>Gönderilen E-Mail Adresi Sahibi</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$name&#125;&#125;</td>
+			<td>Müşteri Adı</td>
+		</tr>
+	</table>
+
+	<h3>Liste anahtar Kelimeler</h3>
+
+	<table class="anahtar">
+		<tr>
+			<td>&#123; &#123;$email&#125;&#125;</td>
+			<td>Gönderilen E-Mail Adresi Sahibi</td>
+		</tr>
+		<tr>
+			<td>&#123; &#123;$name&#125;&#125;</td>
+			<td>E-Mail Sahibi Adı</td>
+		</tr>
+	</table>
+</div>
+<!--	
+	<div class="onizleContainer">
+		<br>
+		Önizleme
+		<br>
+		<div class="btnOnizle" ng-click="refresh()">Tıkla</div>
+		<iframe id="onizle" frameborder="0"></iframe>
+		
+	</div>
+<script>
+	jQuery(function($){
+		var durum = 0;
+		$(".btnOnizle").click(function(){
+			if (durum==0){
+				$(".onizleContainer").animate({"right": -60});
+				durum=1;
+			} else {
+				durum=0;
+				$(".onizleContainer").animate({"right": -693});
+			}
+		});
+	});
+</script>-->

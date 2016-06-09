@@ -1,0 +1,73 @@
+<div class="profile" id="personal">
+<br>
+					<div class="margiv-top-20">
+						<a class="btn green" href="#/caller">
+							&lt; Geri Dön </a>
+					</div>
+					<br>
+						<div class="tab-content">
+							<div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Firma Adı</label>
+                                    <input type="text"
+                                           placeholder="Firma Adı"
+                                           ng-model="edit.company"
+                                           class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Yetkili Kişi</label>
+                                    <input  class="form-control"
+                                            rows="3"
+                                            ng-model="edit.name"
+                                            placeholder="Adres"></input>
+                                </div>
+                                <div class="form-group">
+                                    <label class = "control-label">Telefon No</label>
+                                    <input type = "text"
+                                            ui-mask = "9 (999) 999 99 99"
+                                            data-date-type  = "string" 
+                                            placeholder = "_ (___) ___ __ __"
+                                            ng-model = "edit.phone"
+                                            class = "form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Arama Tarihi</label>
+                                        <input type="text" 
+                                            class="form-control"
+                                            ng-model        = "edit.date"
+                                            data-date-format="dd-MM-yyyy" 
+                                            data-date-type  ="number" 
+                                            data-autoclose  ="1" 
+                                            name = "date2" 
+                                            bs-datepicker>
+                                    </div>
+                                
+                                <div class="form-group">
+                                    <label class="control-label">Konu</label>
+                                    <textarea class="form-control"
+                                        rows="4"
+                                        ng-model="edit.subject"
+                                        placeholder="Konu"></textarea>
+                                </div>
+                               
+                                <br>
+                                
+                            </div>
+                            <div class="margiv-top-10">
+                                    <a class="btn green" ng-click="update()">
+                                        Güncelle
+                                    </a>
+                                    <a  href="#/caller" class="btn default">
+                                        İptal
+                                    </a>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="alert alert-{{durumClass}}">
+                                        {{Durum}}
+                                    </div>
+                                </div>
+						</div>
+					</div>

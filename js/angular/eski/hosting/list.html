@@ -1,0 +1,304 @@
+<style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+            margin-left: -1px;
+            padding-left: 14px; /* Regular padding-left + 1. */
+            width: 401px;
+        }
+
+    .pac-container {
+        font-family: Roboto;
+    }
+
+    #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+    }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #map-canvas {
+        width: 100%;
+        height: 555px;
+    }
+
+    .tab-content, .tabbable-custom {
+        overflow: visible;
+    }
+
+        .tab-content > .active {
+            overflow: visible;
+        }
+
+    .tabhide {
+        display: none !important;
+    }
+
+    td {
+        vertical-align: middle !important;
+    }
+
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Hosting <small>çalıştıklarımız ve çalışacaklarımız</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="/#/">Anasayfa</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#/hosting">Hosting</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_21" data-toggle="tab">
+                        Hostingler
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab_1_31" data-toggle="tab">
+                        Hosting Ekle
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_21">
+                    <div class="row search-form-default"  style="width: 100%;">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-cont">
+                                    <input type="text"
+                                           id="yenigorev"
+                                           ng-model="search.domain"
+                                           placeholder="Domain Ara..."
+                                           class="form-control">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            id="btngorev"
+                                            class="btn green-haze">
+                                        Ara &nbsp;
+                                        <i class="m-icon-swapright m-icon-white"></i>
+                                    </button>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body profile" ui-view="hosting">
+                        <div style="clear: both"></div>
+                        <br>
+                            <style>
+                                .control{
+                                    color: red!important;
+                                }
+                            </style>
+                        <table class="task-content table table-striped table-bordered table-advance table-hover"
+                        >
+                            <thead>
+                                <tr>
+                                    <th style="cursor: pointer"> Sıra</th>
+                                    <th ng-click="orderByField='domain'; reverseSort = !reverseSort" style="cursor: pointer">
+                                        <i class="fa fa-briefcase"></i> Domain Adı
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-briefcase"></i> Hosting Firma
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-user"></i> Platform
+                                    </th>
+                                    <th ng-click="orderByField='hosting_bitis'; reverseSort = !reverseSort" style="cursor: pointer">
+                                        <i class="fa fa-calendar-o"></i> Bitiş
+                                    </th>
+                                    <th ng-click="orderByField='hosting_bitis'; reverseSort = !reverseSort" style="cursor: pointer">
+                                        <i class="fa fa-calendar"></i> Kalan
+                                    </th>
+                                    <th style="width: 179px;">
+                                        
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                <tr ng-repeat="hosting in domainHostingList | filter:search.domain |orderBy:orderByField:reverseSort | limitTo:totalDisplayed ">
+                                    <td class="item-wrapper">
+                                        {{$index+1}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                       {{hosting.domain}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{hosting.hosting_firma}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{hosting.platform}}
+                                    </td>
+                                    
+                                    <td class="item-wrapper">
+                                        {{hosting.hosting_bitis}}
+                                    </td>
+                                    <td class="item-wrapper" ng-class="{'control': hosting.bl_kalan }">
+                                        {{ hosting.kalan }} gün
+                                    </td>
+                                    <td>
+                                    <a class="btn default btn-xs blue-stripe" 
+                                        ng-class="{'iconHide': !hosting.bl_kalan }"
+                                        ng-click="atlat(hosting)"
+                                        style="margin-left:0">
+                                    +<input type="text" ng-click="stopBubling($event)" ng-init="hosting.txtDateSkip=1" ng-model="hosting.txtDateSkip" style="width: 12px;background: transparent;border: none;text-align: center;">
+                                    
+                                    Yıl</a>
+                                        <a class="btn default btn-xs green-stripe" ui-sref="hosting.hosting_id({ id: hosting.id })">Düzenle</a>
+                                        
+                                        <a class="btn default btn-xs red-stripe" ng-click="delete(hosting.id)">Sil</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="iconhide" 
+                            ng-class="{iconshow:(domainHostingList.length > totalDisplayed ) }">
+                            
+                            <button 
+                                class="btn btnDevami" 
+                                ng-click="loadMore()">
+                                <i class="fa fa-chevron-down"></i> Devamı...
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_1_31">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Domain Adı</label>
+                                <input type="text"
+                                       placeholder="Domain Adı"
+                                       ng-model="new.domain"
+                                       class="form-control" />
+                            </div>
+                         
+                            <div class="form-group">
+                                <label class="control-label">Projeler</label>
+                                <select class="form-control"
+                                        ng-model="new.project_id"
+                                        ng-options="sectoralt.id as sectoralt.name for sectoralt in projectList">
+                                    <option value="" selected="selected">Seçiniz:</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Hosting Firması</label>
+                                <input type="text"
+                                       placeholder="Hosting Firması"
+                                       ng-model="new.hosting_firma"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label class="control-label">Platform</label>
+                                <select class="form-control"
+                                        ng-model="new.platform">
+                                    <option value="">Seçiniz</option>
+                                    <option value="Windows">Windows</option>
+                                    <option value="Linux">Linux</option>
+                                </select>
+                            </div>
+                             <div class="form-group">
+                                <label class="control-label">Müşteri</label>
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="new.customer_id"
+                                       ng-options="customer.id as customer.company for customer in getCustomer($viewValue)"
+                                       placeholder="Müşteri Firması"
+                                       bs-typeahead>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label">Hosting Bitiş</label>
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="new.hosting_bitis"
+                                       data-date-type="string"
+                                       data-date-format="yyyy-MM-dd"
+                                       name="date2"
+                                       data-autoclose="1"
+                                       bs-datepicker>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-12 margiv-top-10">
+                        <a class="btn green" ng-click="saveDomain()">
+                            Kaydet
+                        </a>
+                        <a href="#" class="btn default">
+                            İptal
+                        </a>
+                    </div>
+                    <div style="clear: both"></div>
+                    <br>
+                    <div class="form-group">
+                        <div class="alert alert-{{durumClass}}">
+                            {{Durum}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+        $(".nav-tabs a").click(function (e) {
+            e.preventDefault();
+        });
+    }, 100);
+</script>

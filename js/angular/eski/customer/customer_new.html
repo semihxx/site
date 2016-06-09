@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_22" data-toggle="tab">
+                        Müşteri Ekle
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_22">
+                    <form role="form" action="#">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Firma Adı</label>
+                                    <input type="text"
+                                           placeholder="Firma Adı"
+                                           ng-model="new.company"
+                                           class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Sektör</label>
+                                    <select class="form-control"
+                                            ng-model="new.sector_id"
+                                            ng-options="sectoralt.id as sectoralt.name for sectoralt in sectorList">
+                                        <option value="" selected="selected">Seçiniz:</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Adres</label>
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              ng-model="new.address"
+                                              placeholder="Adres"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class    ="control-label">E-Mail Adresi</label>
+                                    <input type     = "text"
+                                        placeholder = "E-Mail Adresi"
+                                        ng-model    = "new.email"
+                                        class       = "form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefon No</label>
+                                    <input type="text"
+                                           ui-mask="9 (999) 999 99 99"
+                                           placeholder="_ (___) ___ __ __"
+                                           ng-model="new.phone"
+                                           class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Vergi No</label>
+                                    <input type="text"
+                                           class="form-control" rows="3"
+                                           ng-model="new.tax_no"
+                                           placeholder="Vergi No"></textarea>
+                                </div>
+                                <div class="margiv-top-10">
+                                    <a class="btn green" ng-click="save.customer1()">
+                                        Kaydet
+                                    </a>
+                                    <a href="#" class="btn default">
+                                        İptal
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Müşteri Tipi</label>
+                                    <select class="form-control"
+                                            ng-model="new.type_id"
+                                            ng-options="typealt.id as typealt.name for typealt in typeList">
+                                        <option value="" selected="selected">Seçiniz:</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Yetkili Kişi</label>
+                                    <input type="text"
+                                           placeholder="Yetkili Kişi"
+                                           ng-model="new.name"
+                                           class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Bilgi</label>
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              ng-model="new.info"
+                                              placeholder="Bilgi"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class    ="control-label">Website</label>
+                                    <input type     = "text"
+                                        placeholder = "Website"
+                                        ng-model    = "edit.web"
+                                        class       = "form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cep Telefon</label>
+                                    <input type="text"
+                                           ui-mask="9 (999) 999 99 99"
+                                           ng-model="new.mobile"
+                                           placeholder="_ (___) ___ __ __" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Vergi Dairesi</label>
+                                    <input type="text"
+                                           ng-model="new.tax_office"
+                                           placeholder="Vergi Dairesi"
+                                           class="form-control" />
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="alert alert-{{durumClass}}">
+                                        {{Durum}}
+                                    </div>
+                                </div>
+
+                            </div>
+                    </form>
+
+                        <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

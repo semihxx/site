@@ -1,0 +1,336 @@
+<style>
+	.simplelineicons-demo{
+		width: 80%;
+		float: right;
+		height: 160px;
+		overflow-y: scroll;
+		margin-right: 15px;
+	}
+	.simplelineicons-demo .item-box {
+		width: auto;
+		float: left;
+		cursor: pointer;
+		}
+		.item-box:hover .item{
+			background-color: #d64635;
+			color: #fff;
+		}
+		.item-box .item-active{
+			background-color: #d64635!important;
+			color: #fff!important;
+		}
+		.item-box i{
+			font-size: 26px;
+		}
+		.select .label.label-icon{
+			padding: 1px 4px 1px 4px;
+		}
+		.islem a{
+			cursor: pointer;
+		}
+</style>
+
+<div class="row" >
+	<div class="col-md-12">
+		<h3 class="page-title">
+		Duyurular <small> müşteri bildirimleri</small>
+		</h3>
+		
+		<div class="page-bar">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+				<i class="fa fa-home"></i>
+				<a href="/#/">Anasayfa</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li ng-repeat="nest in breadCrumb" ng-hide="loading" >
+				<a href="/#/duyurular">Duyurular</a>
+			</li>
+            </ul>
+        </div>
+	</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+		<div class="portlet box red">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-align-justify"></i> Tüm Duyurular
+				</div>
+				<div style="float: right;">
+					<a href="#/contact" ng-click="newModul()" class="btn" style="padding: 0 20px;color:#d84a38;background-color: #fff;">Yeni Ekle</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-scrollable">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Başlık</th>
+								<th>İşlem</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key, panel) in panelList" class="islem">
+								<td>{{$index+1}}</td>
+								<td>{{panel.baslik}}</td>
+								<td>
+									<a ng-click="edit( panel.id  )" >
+										<span class="label label-sm label-success">
+										Düzenle</span>
+									</a> 
+									<a ng-click="delete( panel.id )">
+										<span class="label label-sm label-danger">
+										Sil</span>
+									</a>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="portlet box purple ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-gift"></i> Yeni Duyuru Ekle
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<form class="form-horizontal" role="form">
+					<div class="form-body">
+						<div class="form-group">
+							<label class="col-md-3 control-label">Başlık:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control input-sm" ng-model="adi" placeholder="Duyuru Başlığını Giriniz">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">Açıklama:</label>
+							<div class="col-md-9">
+								<textarea class="form-control input-sm" ng-model="aciklama" placeholder="Açıklama"></textarea> 
+							</div>
+						</div>
+						<div class="form-group select">
+							<label class="col-md-3 control-label">Tür:</label>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-default" ng-model="selectedPages" data-html="1" data-multiple="1" data-animation="am-flip-x" ng-options="page.value as page.label for page in modulpages" bs-select>
+							      Action <span class="caret"></span>
+							    </button>
+							</div>
+						</div>
+						<div class="form-group select">
+							<label class="col-md-3 control-label">Link:</label>
+							<div class="col-md-4">
+								<input type="text" class="form-control input-sm" ng-model="link" placeholder="http:// başında olacak şekilde sayfa link">
+							</div>
+							<label class="col-md-2 control-label">Link Yazısı:</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control input-sm" ng-model="yazi" placeholder="Ör: Teklif İste">
+							</div>
+						</div>
+						<div class="form-group select">
+							<label class="col-md-3 control-label">Link Renk:</label>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-default" ng-model="colorLink" data-html="1" data-animation="am-flip-x" ng-options="page.value as page.label for page in colorLinks" bs-select>
+							      Action <span class="caret"></span>
+							    </button>
+							</div>
+						</div>
+						<div class="form-group select">
+							<label class="col-md-3 control-label">Önem Derecesi</label>
+							<div class="col-md-4">
+								<input type="text" class="form-control input-sm" ng-model="onem" placeholder="0: normal, 1: önemli">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="simplelineicons-demo">
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-android"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-facebook-square"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-apple"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-instagram"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-google-plus"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-google"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-gittip"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-foursquare"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-dropbox"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-slack"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-share-alt"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-wechat"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-windows"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-youtube-play"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-twitter-square"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-cog"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-smile-o"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-photo"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-map-marker"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-heart"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-mobile"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-gift"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-bar-chart-o"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-search"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-bell-o"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa-bullhorn"></i>
+								</span>
+							</span>
+
+							<span class="item-box">
+								<span class="item">
+									<i class="fa fa fa-plus"></i>
+								</span>
+							</span>
+
+							</span>
+						</div
+						<div style="clear: both"></div>
+						<div class="alert alert-{{durumClass}}">
+							{{Durum}}
+						</div>
+						<div class="form-actions right1">
+							<button type="button" class="btn default">İptal</button>
+							<button type="submit" class="btn green" ng-click="modulEkle()">{{islem}}</button>
+						</div>
+					</div>
+					
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+ 
+</script>

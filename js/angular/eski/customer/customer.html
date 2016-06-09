@@ -1,0 +1,208 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-custom-profile">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_11" data-toggle="tab">
+                        Müşteriler
+                    </a>
+                </li>
+                <li class="tabhide" ng-class="{tabshow:(customerOnayList.length>0) }">
+                    <a href="#tab_1_52" data-toggle="tab">
+                        Onay Bekleyenler <span class="badge badge-default ng-binding">{{customerOnayList.length}}</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_11">
+                    <div ui-view>
+                        <div class="row search-form-default" style="width: 100%;">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-cont">
+                                        <input type="text"
+                                               id="yenigorev"
+                                               ng-model = "customer.search"
+                                               ng-change = "getSearch()"
+                                               placeholder="Müşteri Ara..."
+                                               class="form-control">
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button"
+                                                id="btngorev"
+                                                class="btn green-haze">
+                                            Ara &nbsp;
+                                            <i class="m-icon-swapright m-icon-white"></i>
+                                        </button>
+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body profile">
+                            <div style="clear: both"></div>
+                            <br>
+                            <table class="task-content table table-striped table-bordered table-advance table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <i class="fa fa-briefcase"></i> Firma
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-user"></i> Yetkili Kişi
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-phone"></i> Telefon
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-mobile"></i> Cep Telefon
+                                        </th>
+                                        <th>
+                                            <i class="fa fa-envelope"></i> E-Mail
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="customer in customerLists ">
+                                        <td class="item-wrapper">
+                                            <a ui-sref="main.customer.id({id:customer.id})">{{ ::customer.company}}</a>
+                                        </td>
+                                        <td class="item-wrapper">
+                                            {{ ::customer.name}}
+                                        </td>
+                                        <td class="item-wrapper">
+                                            <a href="tel:{{ ::customer.phone}}">{{ ::customer.phone}}</a>
+                                        </td>
+                                        <td class="item-wrapper">
+                                            <a href="tel:{{ ::customer.mobile}}">{{ ::customer.mobile}}</a>
+                                        </td>
+                                        <td class="item-wrapper">
+                                            <a href="mailto:{{ ::customer.email}}">{{ ::customer.email}}</a>
+                                            <div class="task-config">
+                                                                    <div class="task-config-btn btn-group">
+                                                                        <a class="btn btn-xs default" 
+                                                                            data-toggle="dropdown" 
+                                                                            data-hover="dropdown" 
+                                                                            data-close-others="true">
+                                                                        <i class="fa fa-cog"></i>
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu pull-right">
+                                                                            <li>
+                                                                                <a ui-sref="main.customer.id({id:customer.id})">
+                                                                                <i class="fa fa-pencil"></i> Düzenle </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a ng-click="delete(customer.id)">
+                                                                                <i class="fa fa-trash-o"></i> Sil </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                        </td>
+                                       
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                    <ul class="pagination bootpag">
+                                        <li data-lp="1" class="current{{$index-customerCurrent}}" ng-repeat="number in customerLast_page track by $index">
+                                            <a ng-click="getPage($index+1)" href="javascript:void(0);">{{$index+1}}</a>
+                                        </li>
+
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_1_52" ui-view>
+                    <div class="portlet-body profile">
+                        <div style="clear: both"></div>
+                        <br>
+
+                        <table class="task-content table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fa fa-briefcase"></i> Firma
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-user"></i> Yetkili Kişi
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-phone"></i> Telefon
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-mobile"></i> Cep Telefon
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-envelope"></i> E-Mail
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="customer in customerOnayList | filter:customer.search ">
+                                    <td class="item-wrapper">
+                                        {{ ::customer.company}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        {{ ::customer.name}}
+                                    </td>
+                                    <td class="item-wrapper">
+                                        <a href="tel:{{ ::customer.phone}}">{{ ::customer.phone}}</a>
+                                    </td>
+                                    <td class="item-wrapper">
+                                        <a href="tel:{{ ::customer.mobile}}">{{ ::customer.mobile}}</a>
+                                    </td>
+                                    <td class="item-wrapper">
+                                        <a href="mailto:{{ ::customer.email}}">{{ ::customer.email}}</a>
+                                    
+                                         <div class="task-config">
+                                                                <div class="task-config-btn btn-group">
+                                                                    <a class="btn btn-xs default" 
+                                                                        data-toggle="dropdown" 
+                                                                        data-hover="dropdown" 
+                                                                        data-close-others="true">
+                                                                    <i class="fa fa-cog"></i>
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu pull-right">
+                                                                        <li>
+                                                                            <a 
+                                                                                ng-click="onayla(customer, $index, '0','0')"
+                                                                                style="cursor: pointer">
+                                                                            <i class="fa fa-pencil"></i> onayla </a>
+                                                                        </li>
+                                                                         <li>
+                                                                            <a 
+                                                                                ng-click="onayla(customer, $index, '1', '1')"
+                                                                                style="cursor: pointer">
+                                                                            <i class="fa fa-lock"></i> onayla ve şifre gönder </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a ng-click="delete(customer.id)">
+                                                                            <i class="fa fa-trash-o"></i> Sil </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                    </td>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                        <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+        $(".tabbable a").click(function (e) {
+            e.preventDefault();
+        });
+    }, 100);
+</script>

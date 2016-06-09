@@ -1,0 +1,167 @@
+<style>	
+		.star {
+			padding: 0px 0 0 3px;
+			color: #F3565D;
+			float: left;
+			font-size: 17px;
+			cursor: pointer;
+		}
+
+	.btn[bs-select]{
+		width: 100%;
+  		text-align: left;
+	}
+	.btn[bs-select] .caret{
+		float: right;
+		margin-top: 8px;
+	}
+</style>
+<div class="row">
+	<div class="col-md-12" ui-view>
+		<div class="profile" id="project">
+			<div class="tabbable tabbable-custom tabbable-custom-profile">
+				<ul class="nav nav-tabs">
+					<li  class="active">
+						<a href="#tab_1_22" data-toggle="tab">
+						Proje Ekle</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_22">
+							<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
+								<form role="form" action="#">
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Proje Adı</label>
+												<input type  = "text"
+												placeholder  = "Proje Adı"
+												ng-model 	 = "new.name"
+												class 		 = "form-control"/>
+											</div>
+											
+											
+											<div class="form-group">
+												<label class="control-label">Başlangıç Tarihi:</label>
+												<input type="text" 
+													class="form-control"
+													ng-model 		= "new.start"
+													data-date-format="dd-MM-yyyy" 
+													data-date-type	="string" 
+													data-autoclose	="1" 
+													name = "date2" 
+													bs-datepicker>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Bitiş Tarihi:</label>
+												<input type="text" 
+													class="form-control"
+													ng-model 		= "new.end"
+													data-date-format="dd-MM-yyyy" 
+													data-date-type	="string" 
+													data-autoclose	="1" 
+													name = "date2" 
+													bs-datepicker>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Mevcut Web Site:</label>
+												<input type="text" 
+												class = "form-control"
+												ng-model 		= "new.web"
+												placeholder = "Mevcut Web Site"></input>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Ftp Sunucu</label>
+												<input type = "text"
+												ng-model 	= "new.ftp_sunucu"
+												placeholder = "Ftp Sunucu"
+												class 		= "form-control"/>
+												<label class="control-label">Ftp Kullanıcı Adı</label>
+												<input type = "text"
+												ng-model 	= "new.ftp_kullanici"
+												placeholder = "Ftp Kullanıcı Adı"
+												class 		= "form-control"/>
+												<label class="control-label">Ftp Şifre</label>
+												<input type = "text"
+												ng-model 	= "new.ftp_sifre"
+												placeholder = "Ftp Şifre"
+												class 		= "form-control"/>
+											</div>
+											<div class="margiv-top-10">
+												<a class="btn green" ng-model-options="{ debounce: 5000 }" ng-click="saveProject()">
+												Kaydet </a>
+												<a href="#" class="btn default">
+												İptal </a>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class 	= "control-label">Proje Sorumlusu</label>
+												<select class 	= "form-control"
+													ng-model	= "new.person_id"
+													ng-options	= "personalalt.id as personalalt.name for personalalt in personalList">
+													<option value="" selected="selected">Seçiniz:</option>
+												</select>
+											</div>
+											
+											<div class="form-group calisma">
+												<label class 	= "control-label">Çalışma Grubu</label>
+												 <br>
+												
+											    <button type="button" class="btn btn-default" ng-model="new.selectedGroups" data-html="1" data-multiple="1"  bs-options="group.id as group.name for group in groupList" bs-select>
+												  Action <span class="caret"></span>
+												</button>
+											</div>
+											<div class="form-group">
+												<label class 	= "control-label">Müşteri</label>
+												<input id="customerdata"  type="text" class="form-control" ng-model="new.customerID" ng-trigger="focus" ng-html="true" bs-options="customer.id as customer.company for customer in getCustomer($viewValue)" placeholder="Müşteri Firması" bs-typeahead="getCustomer">
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Açıklama</label>
+												<textarea class = "form-control"
+												ng-model 		= "new.desc"
+												rows 			= "4"
+												placeholder = "Açıklama (Örnek siteler, notlar, talepler vs.)"></textarea>
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Doküman Bilgiler</label>
+												<textarea class="form-control"
+												rows 				= "3"
+												ng-model 		= "new.doclinks"
+												placeholder = "Doküman Bilgiler"></textarea>
+											</div>
+										</div>
+									</div>
+									<div style="clear: both"></div>
+									<br>
+									
+									<div class="form-group">
+										<div class="alert alert-{{durumClass}}">
+					                        {{Durum}}
+					                    </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--tab-pane-->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<script>
+	jQuery(function($){
+
+		setTimeout(function(){
+			$(".nav-tabs").click(function(e){
+				e.preventDefault();
+			});
+
+			
+		});
+	});
+</script>

@@ -1,0 +1,242 @@
+
+<style>
+	.sending-mission{
+		background-color: #eee;
+  		opacity: .5;
+	}
+	.combobox-container {
+	  width: initial;
+	}
+	.combobox, .input-group .input-group-addon{
+		border: 0;
+	}
+</style>
+<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-3 nopadding">
+							<div class="profile-info">
+								<h1>{{edit.name}}</h1>
+								<p ng-bind-html="Linkify(edit.desc)">
+								</p>
+								<ul class="list-inline">
+									<li ng-class="{iconhide:(edit.start==undefined || edit.start=='') }">
+										<i class="fa fa-calendar-o"></i> {{edit.start}} <br>
+									</li>
+									<li ng-class="{iconhide:(edit.end==undefined || edit.end=='') }">
+										<i class="fa fa-calendar"></i> {{edit.end}} <br>
+									</li>
+									<li ng-class="{iconhide:(edit.person==undefined || edit.person=='') }">
+										<i class="fa fa-user"></i> 
+											{{edit.person}}
+										<br>
+									</li>
+									<li ng-class="{iconhide:(edit.web==undefined || edit.web=='') }">
+										<i class="fa fa-file-code-o"></i> <a href="http://{{edit.web}}" target="_blank">
+											{{edit.web}}</a> <br>
+									</li>
+									<li ng-class="{iconhide:(edit.doclinks==undefined || edit.doclinks=='') }">
+										<i class="fa fa-folder-open"></i> {{edit.doclinks}} <br>
+									</li>
+									
+									<li ng-class="{iconhide:(company_state==undefined || company_state=='') }">
+										<i class="fa fa-briefcase"></i> 
+										<a ui-sref="main.customer.id({id:edit.customerID})">{{customer.company||customer.name}}</a>
+										 <br>
+									</li>
+									<li ng-class="{iconhide:(edit.ftp_sunucu==undefined || edit.ftp_sunucu=='') }"s>
+										<b style="color:#F3565D">FTP BİLGİLERİ</b>
+									</li>
+									<li ng-class="{iconhide:(edit.ftp_sunucu==undefined || edit.ftp_sunucu=='') }">
+										<i class="fa fa-globe"></i> <a href="http://{{edit.ftp_sunucu}}" target="_blank">
+											{{edit.ftp_sunucu}}</a><br>
+									</li>
+									<li ng-class="{iconhide:(edit.ftp_kullanici==undefined || edit.ftp_kullanici=='') }">
+										<i class="fa fa-user"></i> {{edit.ftp_kullanici}} <br>
+									</li>
+									<li ng-class="{iconhide:(edit.ftp_sifre==undefined || edit.ftp_sifre=='') }">
+										<i class="fa fa-lock"></i> {{edit.ftp_sifre}} <br>
+									</li>
+									<li ng-class="{iconhide:(edit.ftp_sunucu==undefined || edit.ftp_sunucu=='') }">
+										<b style="color:#F3565D">PROJE HAKKINDA</b>
+									</li>
+									
+									<li>
+										<i class="fa fa-check-circle"></i> {{(missionList|filter:{state: 1}).length}} Görev Tamamlandı<br>
+									</li>
+									<li>
+										<i class="fa fa-clock-o"></i> {{(missionList|filter:{state: 0}).length}} Görev Devam Ediyor<br>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="col-md-9 nopadding">
+							<div class="tabbable tabbable-custom tabbable-custom-profile">
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#tab_1_11" data-toggle="tab">
+										Son Görevler </a>
+									</li>
+									<li>
+										<a href="#tab_1_22" data-toggle="tab">
+										<i class="fa fa-cog"></i>
+										Ayarlar</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_1_11" > 
+										<div class="row search-form-default">
+											<div class="col-md-12">
+													
+												<div class="chat-form" style="margin:0;">
+													<div class="input-cont">
+														<input class="form-control" 
+															type="text" 
+															id="yenigorev"
+															ng-model 	= "project.yeniGorev"
+															placeholder =  "Görev Ekle..." >
+													</div>
+													<div class="btn-cont"
+														id		 ="btngorev"
+														ng-click = "btnGorevEkle()">
+														<span class="arrow">
+														</span>
+														<a href="" class="btn blue icn-only">
+														<i class="fa fa-check icon-white"></i>
+														</a>
+													</div>
+													<div class="reload" ng-click="missionObj.refresh()">
+														<img src="/assets/global/img/portlet-reload-icon-white.png" alt="">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="portlet-body"  style="position:relative">
+											<table class="task-content table table-bordered table-advance table-hover">
+												<thead>
+													<tr>
+														<th>
+														</th>
+														<th>
+															<i class="fa fa-briefcase"></i> Görev Başlığı
+														</th>
+														<th class="hidden-xs" style="width: 176px;">
+															<i class="fa fa-user"></i> Görev Sorumlusu
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="mission in missionList | orderBy: ['state', '-priority', '-id'] | limitTo:totalDisplayed track by mission.id"
+														ng-class="{'sending-mission': mission.sending}">
+
+														<td style="width: 51px;padding-right: 0;padding-left: 1px;padding-top: 11px;">
+															<input type 	= "checkbox"
+																ng-model   	= "mission.state"
+																ng-click 		= "missionObj.update(mission) "
+																class 			= "radioCheck" 
+																ng-true-value  = "'1'" 
+																ng-false-value = "'0'"
+																style 		  	 = "float: left;" >
+															<i 
+															class 	= "fa fa-star active{{mission.priority}} star"
+															ng-click = "missionObj.update( mission, 'priority' ); "
+														></i>
+														</td>
+														<td class="done-{{mission.state}} item-wrapper isread-{{mission.is_read}}">
+															<a 
+																ng-click="removeBubling(item, $event)"
+																editable-textarea = "mission.name"
+																style = "float: left; width: 85%;"
+																onbeforesave = "missionObj.update(mission, $data)"
+																ng-bind="mission.name">
+															</a>
+															<span style="font-size: 9px;position: absolute;right: 9px;">
+																<span ng-bind="mission.date"></span><br>
+																<span ng-bind="mission.hour"></span><br>
+															</span>
+															<a 
+																ng-class="{iconhide:(mission.desc==undefined || mission.desc=='') }" 
+																ui-sref="project.id.mission({missionid:mission.id})">
+																<i class="fa fa-paperclip"></i>
+															</a>
+															<div class="task-config"  ng-click="removeBubling(item, $event)">
+																<div class="task-config-btn btn-group">
+																	<a class="btn btn-xs default" 
+																		data-toggle="dropdown" 
+																		data-hover="dropdown" 
+																		data-close-others="true">
+																	<i class="fa fa-cog"></i>
+																	<i class="fa fa-angle-down"></i>
+																	</a>
+																	<ul class="dropdown-menu pull-right">
+																		<li>
+																			<a ng-click="toggleRight(mission)">
+
+																			<i class="fa fa-pencil"></i> Düzenle </a>
+																		</li>
+																		<li>
+																			<a ng-click="missionObj.delete(mission.id, $index)">
+																			<i class="fa fa-trash-o"></i> İptal </a>
+																		</li>
+																	</ul>
+															</div>
+															</div>
+															
+														</td>
+														<td class="hidden-xs personmission combo_container" style="padding: 0;width: 25%;">
+															<select class 	= "form-control combobox"
+																ng-model	= "mission.person_id"
+																ng-change	= "missionObj.update(mission)" 
+																ng-options	= "personalalt.id as personalalt.name for personalalt in personalList">
+																<option value="" selected="selected">Seçiniz:</option>
+															</select>
+														</td>
+													</tr>
+													
+												</tbody>
+											</table>
+											
+											
+											<div class="iconhide" ng-class="{iconshow:(missionList.length > totalDisplayed ) }">
+											<button class="btn btnDevami" ng-click="loadMore()"><i class="fa fa-chevron-down"></i> Devamı...</button>
+											</div>
+										</div>
+									</div>
+									<!--tab-pane-->
+									<div class="tab-pane" id="tab_1_22">
+										<div class="tab-pane" id="tab_1_1_1">
+											<div class="row">
+											  <div class="col-md-6">
+											  	
+											  </div>
+											  <div class="col-md-6">
+											  	<div class="form-group">
+												    <label for="exampleInputEmail1">Görevleri Otomatik Atanacak Personel</label>
+												    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+												  </div>
+											  </div>
+											  <div class="col-md-6">
+											  	Tarihi Göster
+											  	Saat Göster
+											  	Azami Gösterilecek Görev Sayısı
+											  </div>
+											</div>
+										</div>
+									</div>
+									<!--tab-pane-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+<script>
+	jQuery(function($){
+		setTimeout(function(){
+			$("#yenigorev").unbind('keypress');
+			$("#tab_1_1").on('keypress', '#yenigorev', function(e) {
+				if(e.keyCode==13){
+					$("#btngorev").click();
+				}
+			});		}, 0);
+	});
+</script>

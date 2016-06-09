@@ -1,0 +1,446 @@
+<style>
+	.form-wizard .steps {
+		padding: 5px 0;
+		margin-bottom: 10px;
+	}
+
+	.radio {
+		padding-top: 3px !important;
+	}
+
+	td {
+		vertical-align: middle !important;
+	}
+
+	.iconhide {
+		display: none !important;
+	}
+	.table-limit{
+		max-height: 500px;
+		overflow-y: auto!important;
+	}
+	.task-content .active{
+		background-color: #f0f6fa!important;
+	}
+</style>
+<div class="row">
+	<div class="col-md-12">
+		<h3 class="page-title">
+			Mailing <small>müşteriler ve mail listeleri</small>
+		</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/#/">Anasayfa</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#/mailing">Mailing</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="tabbable tabbable-custom tabbable-custom-profile">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#tab_1_11" data-toggle="tab">
+						Mailing
+					</a>
+				</li>
+				<li>
+					<a href="#tab_1_22" data-toggle="tab">
+						Mailing Liste
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+
+				<div class="tab-pane active" id="tab_1_11">
+					<div class="col-md-12" id="form_wizard_1">
+						<form action="#" class="form-horizontal" id="submit_form" method="POST" novalidate="novalidate">
+							<div class="form-wizard">
+								<div class="form-body">
+									<ul class="nav nav-pills nav-justified steps">
+										<li class="active">
+											<a href="#tab1" data-toggle="tab" class="step">
+												<span class="number">
+													1
+												</span>
+												<span class="desc">
+													<i class="fa fa-check"></i> Liste Oluştur
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="#tab2" data-toggle="tab" class="step">
+												<span class="number">
+													2
+												</span>
+												<span class="desc">
+													<i class="fa fa-check"></i> Template Seç
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="#tab3" data-toggle="tab" class="step active">
+												<span class="number">
+													3
+												</span>
+												<span class="desc">
+													<i class="fa fa-check"></i> Gönder
+												</span>
+											</a>
+										</li>
+									</ul>
+									<div id="bar" class="progress progress-striped" role="progressbar">
+										<div class="progress-bar progress-bar-success" style="width: 25%;">
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab1">
+										
+											<table class="task-content table table-striped table-bordered table-advance">
+												<tr style="vertical-align: top;">
+													<td style="width:20%; vertical-align: top!important;">
+														<table class="task-content table table-striped table-bordered table-advance table-hover ">
+															<thead>
+																<tr>
+																	<th>
+																		<i class="fa fa-briefcase"></i> Mail Listeleri
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td data-ng-class="{active: setupList.domain.length>0}">
+																		<a ng-click="getDomain30()">Domain Son 30 Gün</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td data-ng-class="{active: setupList.personal.length>0}">
+																		<a ng-click="getPersonal()">Personeller</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td data-ng-class="{active: setupList.musteriler.length>0}">
+																		<a ng-click="getMusteriler()">Müşteriler</a>
+																	</td>
+																</tr>
+																<tr ng-repeat="category in categoryList ">
+																	<td class="item-wrapper"  data-ng-class="{active: setupList.liste[category.id].length>0}">
+																		<a ng-click="getListe(category.id)">
+																			{{category.name}}
+																		</a>
+																	</td>
+																</tr>
+																
+															</tbody>
+														</table>
+													</td>
+													<td style="vertical-align: top!important;">
+
+														<div class="portlet-body profile">
+														<div data-ng-repeat="(key, setup) in setupList">
+															<h4>{{key}}</h3>
+															<div class="table-limit">
+																<table class=" task-content table table-striped table-bordered table-advance table-hover" >
+																		<thead>
+																			<tr>
+																				<th style="width:5%;">
+																					<input type="checkbox"
+																							 ng-click="checkAll(key)"
+																							 class="radioCheck"
+																							 style="float: left;">
+																				</th>
+																				<th>Adı</th>
+																				<th>
+																					<i class="fa fa-user"></i> E-Mail
+																				</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+
+																			<tr data-ng-if="key!='liste'" ng-repeat="domain in setup">
+																				<td class="item-wrapper" ng-init="domain.key=key">
+																					<input type="checkbox"
+																							 class="radioCheck chkAll chkAll{{key}}"
+																							 ng-model="domain.selected"
+																							 ng-click="refreshCheckArr(domain.key)"
+																							 data-id="{{domain.id}}"
+																							 data-email="{{domain.email}}"
+																							 data-key="{{domain.key}}"
+																							 ng-true-value="1"
+																							 ng-false-value="0"
+																							 style="float: left;">
+																				
+																				
+																				</td>
+																				<td class="item-wrapper">
+																					{{domain.name}}
+																				</td>
+																				<td class="item-wrapper">
+																					<a href="mailto:{{domain.email}}" ng-bind="domain.email"></a>
+																				</td>
+																			</tr>
+																		</tbody>
+																		<tbody data-ng-if="key=='liste'" data-ng-repeat="domainust in setup">
+																			<tr ng-repeat="domain in domainust">
+																				<td class="item-wrapper"  ng-init="domain.key=key">
+																					<input type="checkbox"
+																							 class="radioCheck chkAll chkAll{{key}}"
+																							 ng-model="domain.selected"
+																							 ng-click="refreshCheckArr(domain.key)"
+																							 data-key="{{domain.key}}"
+																							 data-id="{{domain.id}}"
+																							 data-email="{{domain.email}}"
+																							 ng-true-value="1"
+																							 ng-false-value="0"
+																							 style="float: left;">
+																				</td>
+																				<td class="item-wrapper">
+																					{{domain.name}}
+																				</td>
+																				<td class="item-wrapper">
+																					<a href="mailto:{{domain.email}}" ng-bind="domain.email"></a>
+																				</td>
+																			</tr>
+																		</tbody>
+
+																	</table>
+																</div>
+															</div>
+														</div>
+
+													</td>
+												</tr>
+											</table>
+
+										</div>
+										<div class="tab-pane" id="tab2">
+											<div class="row search-form-default">
+												<div class="col-md-12">
+													<form ui-keypress="{13:'addTemplate($event)'}">
+
+														<div class="input-group">
+															<div class="input-cont">
+																<input type="text"
+																		 id="yenitemplate"
+																		 ng-model="newTemplate.name"
+																		 placeholder="Yeni Template Ekle..."
+																		 class="form-control">
+															</div>
+															<span class="input-group-btn">
+																<button type="submit"
+																		id="btngorev"
+																		ng-click="addTemplate()"
+																		onclick="return false;"
+																		class="btn green-haze">
+																	Ekle &nbsp;
+																	<i class="m-icon-swapright m-icon-white"></i>
+																</button>
+
+															</span>
+														</div>
+													</form>
+
+												</div>
+											</div>
+											<br>
+											<div class="portlet-body profile" ui-view>
+
+												<table class="task-content table table-striped table-bordered table-advance table-hover">
+													<thead>
+														<tr>
+															<th style="width: 3%;">
+															</th>
+															<th>
+																<i class="fa fa-user"></i> Template Adı
+															</th>
+															<th>
+																<i class="fa fa-bookmark"></i> İşlem
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="template in templateList">
+
+															<td class="item-wrapper">
+																<input ng-model="selectedTemplate.id" value="{{template.id}}"
+																		 ng-click="getTemplateContent(template.id)"
+																		 name="template" type="radio">
+															</td>
+															<td class="item-wrapper">{{template.name}}</td>
+															<td class="item-wrapper">
+																<a class="btn default btn-xs green-stripe"
+																	 ui-sref="mailing.templateid({id:template.id})">
+																	Düzenle
+																</a>
+
+																<a ng-click="deleteTemplate( template.id )"
+																	 class="btn default btn-xs red-stripe">
+																	Sil
+																</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="tab-pane" id="tab3">
+											<div ng-class="{iconhide:(selectedEmail.length==0 || temp==0) }">
+												<div class="col-md-5 col-xs-12">
+													<input 
+														class="form-control"
+															type="text"
+															ng-model="mailing.subject"
+															placeholder="Mailing Konusu..."
+														style="width:100%;">
+												</div>
+												<div class="col-md-7 col-xs-12">
+													<a ng-click="sendTemplate()"
+														 class="btn green button-submit" 
+														 style="display: inline-block;margin-bottom: 14px;width:100%;">
+														 {{gonderim}}
+														 <i class="m-icon-swapright m-icon-white"></i>
+													</a>
+												</div>
+											</div>
+											<style>
+												.emailing i{display: none;}
+												.emailing .active{display: inline; }
+												.active1{
+													background-color: #F0FFAD;
+												}
+												.active2{
+													background-color: #ADFFB4;
+												}
+												.active3{
+													background-color: #FFADAD;
+												}
+											</style>
+											<div class="emailing" ng-class="{iconhide:(selectedEmail.length==0 || temp==0) }">
+
+														<div class="col-md-8 col-xs-12">
+															<iframe id="temp" style="width:100%; height:400px; overflow:hidden; border:none"></iframe>
+														</div>
+														<div class="col-md-4 col-xs-12">
+															<h3 ng-init="statesend={}">Mail Adresleri</h3>
+															<div ng-repeat="email in selectedEmail track by $index">
+																<div 
+																	ng-init="statesend[$index] = { state:'0' }"
+																	class="item-wrapper active{{statesend[$index].state}}" 
+																	style="padding: 5px;border-bottom: 1px dotted #fff;">
+																	<i class="fa fa-clock-o" 
+																		ng-class="{active:statesend[$index].state=='0'}" 
+																		style="color: #FFA022;"></i>
+																	<i class="fa fa-times" 
+																		ng-class="{active:statesend[$index].state=='3'}" 
+																		style="color: #FF2222;"></i>
+																	<i class="fa fa-check-circle-o" 
+																		ng-class="{active:statesend[$index].state=='2'}" 
+																		style="color: #1B9D0D;"></i>
+																	<i class="fa fa-dot-circle-o" 
+																		ng-class="{active:statesend[$index].state=='1'}" 
+																		style="color: #0D929D;"></i>
+																	{{email}}
+																</div>
+															</div>
+														</div>
+													
+											</div>
+											<div 
+												style 		= "padding: 10px; color: #6A9957;"
+												class 		= "bg-success" 
+												ng-class 	= "{iconhide:(selectedEmail.length>0 && temp!=0) }">
+												Email listenizi oluşturunuz ve bir template seçiniz.
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</form>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div class="tab-pane" id="tab_1_22">
+					<div class="portlet-body profile" ui-view>
+						<div style="clear: both"></div>
+						<br>
+						<div id="ekle" class="row search-form-default" style="width: 100%;margin: 0;">
+							<div class="chat-form" style="margin:0;">
+
+								<div class="input-cont">
+									<input class="form-control"
+											 type="text"
+											 id="yenigorev"
+											 ng-model="mailing.name"
+											 placeholder="Kategori Ekle...">
+								</div>
+
+								<div class="btn-cont"
+									 id="btngorev"
+									 ng-click="saveCategory()">
+
+									<span class="arrow"></span>
+
+									<a href="" class="btn blue icn-only">
+										<i class="fa fa-check icon-white"></i>
+									</a>
+
+								</div>
+
+							</div>
+						</div>
+						<table class="task-content table table-striped table-bordered table-advance table-hover ">
+							<thead>
+								<tr>
+									<th>
+										<i class="fa fa-envelope"></i> Liste Kategorisi
+									</th>
+									<th>
+										İşlem
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="category in categoryList ">
+									<td class="item-wrapper">
+										{{ category.name}}
+									</td>
+									<td class="item-wrapper">
+										<a class="btn default btn-xs green-stripe"
+											 ui-sref="mailing.listeid({listeid:category.id})">
+											Listeyi Aç
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+	jQuery(document).ready(function () {
+		FormWizard.init();
+		setTimeout(function () {  // burası ile başka bir zamanda yine ilgilenilebilir.
+			$(".nav-pills a").click(function (e) {
+				e.preventDefault();
+			});
+			$(".tabbable a").click(function (e) {
+				e.preventDefault();
+			});
+		}, 100);
+	});
+</script>

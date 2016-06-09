@@ -1,0 +1,286 @@
+<style>
+    .timeline > li .timeline-icon > i {
+        font-size: 24px;
+        line-height: 40px;
+        display: inline;
+    }
+    ul ul.timeline {
+        margin-left: 229px;
+    }
+    .adder{
+        position: relative;
+    }
+    .ticket-textarea{
+        width: 100%;
+        background: transparent;
+        border: 1px dashed #A1B4E5;
+        margin: 5px 0 15px;
+        padding: 5px;
+    }
+    .ticket-text{
+        padding: 5px;
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 2px dashed #A1B4E5;
+        font-size: 20px;
+    }
+    .timeline > li .timeline-body .btn {
+        margin-top: 0px;
+    }
+    .timeline > li .cevap:after {
+        top: 60px;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #fff;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color:    #fff;
+       opacity:  1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color:    #fff;
+       opacity:  1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color:    #fff;
+    }
+    .timeline-body .ticket-state{
+        -webkit-user-select: none; /* Chrome/Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+        -o-user-select: none;
+        user-select: none;
+    }
+    #panel-wrapper{
+        overflow-x: hidden;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-title">
+            Ticket <small>essente crm</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="/#/">Anasayfa</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#/">Ticket</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range">
+                    <i class="icon-calendar"></i>
+                    <span></span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row" flow-init>
+    <div class="col-md-12">
+    <script type="text/ng-template"  id="tree_item_renderer.html">
+        <ul class="timeline">
+            <li class="timeline-grey  view-slide-in" data-ng-repeat="ticket in ticketListAlt | orderBy: ['-state','date']">
+                <!-- blue, green, purple, red, grey, timeline-noline-->
+                <div class="timeline-time">
+                    <span class="date">
+                        {{ticket.updated_at*1000 | date:'dd/MM/yyyy'}}
+                    </span>
+                    <span class="time">
+                        {{ticket.updated_at*1000 | date:'HH:mm'}}
+                    </span>
+                </div>
+                <div class="timeline-icon">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="timeline-body">
+                    <p style="float: left;">yazan: {{ticket.pname || ticket.cname}}</p>
+
+                    <a 
+                      class = "nav-link pull-right fancybox" 
+                      href  = "css/flow/temp/{{ticket.image}}" 
+                      style = "color:#fff; float: right; margin: 0;" 
+                      ng-if = "ticket.image != '' ">
+                        <i class="fa fa-download"></i> 
+                        {{ticket.image}}
+                    </a>
+
+                    <div style="clear:both" class="timeline-content">
+                        {{ticket.comment}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </script>
+        <ul class="timeline">
+
+            <li class="timeline-yellow view-slide-in" ng-if="ticketList.length==0">
+                <div class="timeline-icon">
+                    <i class="fa fa-star"></i>
+                </div>
+                <div class="timeline-body">
+                    <p>Henüz herhangi bir ticketınız bulunmamaktadır.</p><br>
+                </div>
+                
+            </li>
+            <li class = "timeline-blue view-slide-in" 
+                flow-init
+                data-ng-repeat = "ticket in ticketList | orderBy: [ '-updated_at'] | limitTo: limitList">
+                <!-- blue, green, purple, red, grey, timeline-noline-->
+
+                <div class="timeline-time">
+                    <span class="date">
+                        {{ticket.updated_at*1000 | date:'dd/MM/yyyy'}}
+                    </span>
+                    <span class="time">
+                        {{ticket.updated_at*1000 | date:'HH:mm'}}
+                    </span>
+                </div>
+
+                <div class="timeline-icon">
+                    <i class="fa fa-check-circle-o" ng-if="ticket.state=='0'"></i>
+                    <i class="fa fa-clock-o" ng-if="ticket.state=='1'"></i>
+                </div>
+
+                <div class="timeline-body">
+                    <h2>{{ticket.subject}}</h2>
+                    <div class = "ticket-state" style="float: right; margin-top:-40px;">
+                        <div ng-if="ticket.state=='0'" ng-click = "ticketState(ticket, '1')" style="background-color: #C7C7C7; cursor:pointer; padding: 2px 9px;">Ticket Kapalı</div>
+                        <div ng-if="ticket.state=='1'" ng-click = "ticketState(ticket, '0')" style="background-color: #DD4848; cursor:pointer; padding: 2px 9px;">Ticket Açık</div>
+                    </div>
+                    <div class="timeline-content">
+                        {{ticket.desc}}
+                    </div>
+                    <div class="timeline-footer">
+                       <p style="float:left; width: 39%;margin-bottom: 0;margin-top: 12px;">
+                            Müşteri Adı: 
+                            <b>
+                                <a href="#/customer/{{ticket.customer_id}}" style="color:#fff;">
+                                    {{ticket.cname}}
+                                </a>
+                            </b>
+                        </p>
+                       <div style="float:right; width:50%;">
+                           <a ng-click="delete($index, ticket)" class="nav-link pull-right"><i class="fa fa-trash-o"></i> Sil</a>
+                            <a style = "padding: 0 10px"
+                                ng-click = "newTicketState=true; ticket.answerState = !ticket.answerState;" class="nav-link pull-right">
+                               <i class="fa fa-pencil-square-o"></i>Cevap Yaz
+                            </a>
+                            <a 
+                                ng-click = "getComment(ticket.id, ticket)" class="nav-link pull-right">
+                               <b>{{ticket.count}} Cevap</b>
+                            </a>
+                             <a  class="nav-link pull-right fancybox" href="css/flow/temp/{{ticket.image}}" style="color:#fff;padding: 0 10px " ng-if="ticket.image!=''"><i class="fa fa-download"></i> {{ticket.image}}</a>
+                        </div> 
+                    </div>
+
+                </div>
+                <div class="timeline-yellow adder" style="margin-top: -10px;" ng-init="ticket.answerState=true" ng-hide="ticket.answerState">
+                            <div class="timeline-icon" style="top: 45px;">
+                                <i class="fa fa-sign-out"></i>
+                            </div>
+                            <div class="timeline-body cevap">
+                                <textarea cols = "30" rows = "3"  
+                                    class       = "ticket-textarea"
+                                    ng-model    = "comment.comment"
+                                    placeholder = "Mesajınızı yazınız..."></textarea>
+                                <button 
+                                    type="button" 
+                                    class="btn green" 
+                                    ng-click="sendComment(ticket, $flow); $flow.resume();">
+                                    {{Durum}}
+                                </button>
+                                <button 
+                                    type="button" 
+                                    class="btn grey" 
+                                    ng-click="ticket.answerState = !ticket.answerState">
+                                    İptal
+                                </button>
+
+                                
+                                <div flow-transfers
+                                     flow-btn
+                                     style = "
+                                        float: right;
+                                        padding: 8px;
+                                        background-color: #eee;
+                                        cursor: pointer;">
+                                    <div>
+                                        <table> 
+                                            <tr>
+                                                <td style="padding:0 10px;">
+                                                    <div>{{transfers[0].name || "Dosya Yükle"}}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" ng-if="transfers[0].name!=undefined">
+                                                      <a style="cursor:pointer;" ng-click="transfers[0].cancel()">
+                                                        Dosya Kaldır
+                                                      </a>
+                                                      <a class="btn btn-mini btn-info" ng-click="transfers[0].retry()" ng-show="transfers[0].error">
+                                                        Tekrar Dene
+                                                      </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                 <div ng-repeat="ticketListAlt in ticket.ticketComment" ng-include="'tree_item_renderer.html'"></div>
+            </li>
+            <li>
+                <div ng-show="ticketList.length>limitList" ng-hide="ticketList.length<5"
+                    style="
+                        text-align: center;
+                        padding: 5px;
+                        background: #C9C9C9;
+                        color: #fff;
+                        width: 100%;
+                        margin: 0 auto;">
+                    <a ng-click="limitList=limitList+5;" style="color: #fff;display:block;width:100%;">Devamı...</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+<script>
+    jQuery(document).ready(function ($) {
+        Index.initDashboardDaterange();
+        Demo.init();
+        $(".portlet-title").on('keypress', '.inputSearch', function (e) {
+            if (e.keyCode == 13) {
+                $(".portlet tbody tr").first().find("td+td a").first().click();
+            }
+        });
+    });
+</script>
+<div id="dater" class="daterangepicker dropdown-menu">
+    <div class="calendar left"></div>
+    <div class="calendar right"></div>
+    <div class="ranges">
+
+        <div class="range_inputs">
+            <div class="daterangepicker_start_input">
+                <label for="daterangepicker_start"></label>
+                <input class="input-mini" type="text" name="daterangepicker_start" value="" disabled="disabled" />
+            </div>
+            <div class="daterangepicker_end_input">
+                <label for="daterangepicker_end"></label>
+                <input class="input-mini" type="text" name="daterangepicker_end" value="" disabled="disabled" />
+            </div>
+            <button class="applyBtn" disabled="disabled"></button>&nbsp;
+            <button class="cancelBtn"></button>
+        </div>
+    </div>
+</div>
